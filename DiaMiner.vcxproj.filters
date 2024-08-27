@@ -15,12 +15,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="game\sprite.frag">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="game\sprite.vert">
-      <Filter>Source Files</Filter>
-    </None>
+    <None Include="sprite.frag" />
+    <None Include="sprite.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="game\game.cpp">
@@ -69,6 +65,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game\animatedsprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game\sceneaut.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -121,5 +120,37 @@
     <ClInclude Include="game\animatedsprite.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="game\defs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game\sceneaut.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="sprite\anim8strip.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\anim8stripx2sheet.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\ball.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\board8x1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\board8x2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\board8x8.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\explosion.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="sprite\aut.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

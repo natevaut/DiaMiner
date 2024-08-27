@@ -32,6 +32,7 @@ public:
 protected:
 	std::vector<Scene *> m_scenes;
 	int m_iCurrentScene;
+	Scene** m_pScenes;
 	Sprite **m_pSprites;
 	static Game *sm_pInstance;
 	Renderer *m_pRenderer;

@@ -27,6 +27,7 @@
     <ClCompile Include="game\matrix4.cpp" />
     <ClCompile Include="game\renderer.cpp" />
     <ClCompile Include="game\scene.cpp" />
+    <ClCompile Include="game\sceneaut.cpp" />
     <ClCompile Include="game\sceneballs.cpp" />
     <ClCompile Include="game\scenecheckerboards.cpp" />
     <ClCompile Include="game\shader.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="game\matrix4.h" />
     <ClInclude Include="game\renderer.h" />
     <ClInclude Include="game\scene.h" />
+    <ClInclude Include="game\sceneaut.h" />
     <ClInclude Include="game\sceneballs.h" />
     <ClInclude Include="game\scenecheckerboards.h" />
     <ClInclude Include="game\shader.h" />
@@ -62,6 +64,7 @@
   <ItemGroup>
     <Image Include="sprite\anim8strip.png" />
     <Image Include="sprite\anim8stripx2sheet.png" />
+    <Image Include="sprite\aut.png" />
     <Image Include="sprite\ball.png" />
     <Image Include="sprite\board8x1.png" />
     <Image Include="sprite\board8x2.png" />

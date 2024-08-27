@@ -2,11 +2,18 @@
 // This include:
 #include "game.h"
 // Library includes:
+#include "defs.h"
 #include "renderer.h"
 #include "logmanager.h"
 #include "sprite.h"
 #include "scenecheckerboards.h"
 #include "sceneballs.h"
+#include "sceneaut.h"
+
+#define SCENEID_AUT 0
+#define SCENEID_CHECKER 1
+#define SCENEID_BALLS 2
+const int NSCENES = 2;
 
 // Static Members:
 Game *Game::sm_pInstance = 0;
@@ -40,8 +47,8 @@ void Game::Quit()
 
 bool Game::Initialise()
 {
-	int bbWidth = 1024;
-	int bbHeight = 768;
+	int bbWidth = WIDTH;
+	int bbHeight = HEIGHT;
 	m_pRenderer = new Renderer();
 	if (!m_pRenderer->Initialise(true, bbWidth, bbHeight))
 	{
@@ -51,20 +58,27 @@ bool Game::Initialise()
 	bbWidth = m_pRenderer->GetWidth();
 	bbHeight = m_pRenderer->GetHeight();
 	m_iLastTime = SDL_GetPerformanceCounter();
-	m_pRenderer->SetClearColour(0, 128, 255);
 
-	//
+	// Setup scenes
 
-	m_iCurrentScene = 1;
+	m_iCurrentScene = SCENEID_AUT;
+	m_pScenes = new Scene *[NSCENES + 1];
+	Scene **pScenes = m_pScenes;
 
-	Scene *pScene0 = 0;
-	pScene0 = new SceneCheckerboards();
-	pScene0->Initialise(*m_pRenderer);
-	m_scenes.push_back(pScene0);
-	Scene *pScene1 = 0;
-	pScene1 = new SceneBalls();
-	pScene1->Initialise(*m_pRenderer);
-	m_scenes.push_back(pScene1);
+	pScenes[SCENEID_CHECKER] = new SceneCheckerboards();
+	pScenes[SCENEID_CHECKER]->Initialise(*m_pRenderer);
+
+	pScenes[SCENEID_BALLS] = new SceneBalls();
+	pScenes[SCENEID_BALLS]->Initialise(*m_pRenderer);
+
+	pScenes[SCENEID_AUT] = new SceneAUT();
+	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer);
+
+	for (int i = 0; i <= NSCENES; i++)
+	{
+
+		m_scenes.push_back(pScenes[i]);
+	}
 
 	return true;
 }
@@ -117,12 +131,26 @@ void Game::Process(float deltaTime)
 {
 	ProcessFrameCounting(deltaTime);
 
+	// Switch splash scene after a timeout
+	float splashTimeout = 2.0f;
+	if (m_iCurrentScene == SCENEID_AUT && m_fElapsedSeconds > splashTimeout)
+	{
+		m_iCurrentScene = SCENEID_BALLS;
+	}
+
 	m_scenes[m_iCurrentScene]->Process(deltaTime);
 }
 void Game::Draw(Renderer &renderer)
 {
-
 	m_iFrameCount++;
+
+	switch (m_iCurrentScene) {
+	case SCENEID_AUT:
+		renderer.SetClearColour(0x00, 0x00, 0x00);
+		break;
+	default:
+		renderer.SetClearColour(0x00, 0x80, 0xFF);
+	}
 	renderer.Clear();
 
 	m_scenes[m_iCurrentScene]->Draw(renderer);
@@ -134,10 +162,14 @@ void Game::ProcessFrameCounting(float deltaTime)
 	// Count total simulation time elapsed:
 	m_fElapsedSeconds += deltaTime;
 
+	float moduloElapsed = m_fElapsedSeconds;
+	while (moduloElapsed > 1.0f) {
+		moduloElapsed -= 1.0f;
+	}
+
 	// Frame Counter:
-	if (m_fElapsedSeconds > 1.0f)
+	if (moduloElapsed < 0.1f)
 	{
-		m_fElapsedSeconds -= 1.0f;
 		m_iFPS = m_iFrameCount;
 		m_iFrameCount = 0;
 	}

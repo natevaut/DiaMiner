@@ -33,5 +33,4 @@ int main(int argc, char *argv[])
 
 void GameLoop()
 {
-	LogManager::GetInstance().Log("New game loop");
 }
