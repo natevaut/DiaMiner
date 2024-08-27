@@ -1,14 +1,12 @@
 // COMP710 GP Framework 2022
 // This include:
-#include "sceneaut.h"
+#include "scene_aut.h"
 
 // Local includes:
 #include "defs.h"
 #include "renderer.h"
 #include "sprite.h"
 #include <random>
-
-int TIME_TIL_COMPLETE = 50;
 
 SceneAUT::SceneAUT()
 {
@@ -44,7 +42,6 @@ SceneAUT::Initialise(Renderer& renderer)
 void
 SceneAUT::Process(float deltaTime)
 {
-	m_timeTilComplete++;
 	int n = 0;
 	m_pSprites[n]->Process(deltaTime);
 	
@@ -55,8 +52,4 @@ SceneAUT::Draw(Renderer& renderer)
 {
 	int n = 0;
 	m_pSprites[n]->Draw(renderer);
-}
-
-bool SceneAUT::IsComplete() {
-	return m_timeTilComplete > TIME_TIL_COMPLETE;
 }

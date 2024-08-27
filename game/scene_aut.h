@@ -16,8 +16,7 @@ public:
 	virtual ~SceneAUT();
 	virtual bool Initialise(Renderer& renderer);
 	virtual void Process(float deltaTime);
-	virtual void Draw(Renderer& renderer); virtual
-	bool IsComplete();
+	virtual void Draw(Renderer& renderer);
 protected:
 private:
 	SceneAUT(const SceneAUT& splashscene);

@@ -6,13 +6,11 @@
 #include "renderer.h"
 #include "logmanager.h"
 #include "sprite.h"
-#include "scenecheckerboards.h"
-#include "sceneballs.h"
-#include "sceneaut.h"
+#include "scene_main.h"
+#include "scene_aut.h"
 
 #define SCENEID_AUT 0
-#define SCENEID_CHECKER 1
-#define SCENEID_BALLS 2
+#define SCENEID_MAIN 1
 const int NSCENES = 2;
 
 // Static Members:
@@ -65,18 +63,14 @@ bool Game::Initialise()
 	m_pScenes = new Scene *[NSCENES + 1];
 	Scene **pScenes = m_pScenes;
 
-	pScenes[SCENEID_CHECKER] = new SceneCheckerboards();
-	pScenes[SCENEID_CHECKER]->Initialise(*m_pRenderer);
-
-	pScenes[SCENEID_BALLS] = new SceneBalls();
-	pScenes[SCENEID_BALLS]->Initialise(*m_pRenderer);
+	pScenes[SCENEID_MAIN] = new SceneMain();
+	pScenes[SCENEID_MAIN]->Initialise(*m_pRenderer);
 
 	pScenes[SCENEID_AUT] = new SceneAUT();
 	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer);
 
 	for (int i = 0; i <= NSCENES; i++)
 	{
-
 		m_scenes.push_back(pScenes[i]);
 	}
 
@@ -135,7 +129,7 @@ void Game::Process(float deltaTime)
 	float splashTimeout = 2.0f;
 	if (m_iCurrentScene == SCENEID_AUT && m_fElapsedSeconds > splashTimeout)
 	{
-		m_iCurrentScene = SCENEID_BALLS;
+		m_iCurrentScene = SCENEID_MAIN;
 	}
 
 	m_scenes[m_iCurrentScene]->Process(deltaTime);
