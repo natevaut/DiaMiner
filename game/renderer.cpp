@@ -132,11 +132,11 @@ void Renderer::SetFullscreen(bool fullscreen)
 		SDL_SetWindowFullscreen(m_pWindow, 0);
 	}
 }
-void Renderer::SetClearColour(unsigned char r, unsigned char g, unsigned char b)
+void Renderer::SetClearColour(unsigned int colour)
 {
-	m_fClearRed = r / 255.0f;
-	m_fClearGreen = g / 255.0f;
-	m_fClearBlue = b / 255.0f;
+	m_fClearRed = ((colour>>16) & 0xFF) / 255.0f;
+	m_fClearGreen = ((colour>>8) & 0xFF) / 255.0f;
+	m_fClearBlue = ((colour>>0) & 0xFF) / 255.0f;
 }
 
 void Renderer::GetClearColour(unsigned char &r, unsigned char &g, unsigned char &b)

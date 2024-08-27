@@ -22,7 +22,7 @@ public:
 	bool Initialise(bool windowed, int width = 0, int height = 0);
 	void Clear();
 	void Present();
-	void SetClearColour(unsigned char r, unsigned char g, unsigned char b);
+	void SetClearColour(unsigned int colour);
 	void GetClearColour(unsigned char &r, unsigned char &g, unsigned char &b);
 	int GetWidth() const;
 	int GetHeight() const;

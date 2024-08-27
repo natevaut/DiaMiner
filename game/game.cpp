@@ -64,15 +64,19 @@ bool Game::Initialise()
 	m_iCurrentScene = SCENEID_AUT;
 	m_pScenes = new Scene *[NSCENES + 1];
 	Scene **pScenes = m_pScenes;
+	m_piBackgrounds = new int [NSCENES + 1];
 
 	pScenes[SCENEID_CHECKER] = new SceneCheckerboards();
 	pScenes[SCENEID_CHECKER]->Initialise(*m_pRenderer);
+	m_piBackgrounds[SCENEID_CHECKER] = 0x0080ff;
 
 	pScenes[SCENEID_BALLS] = new SceneBalls();
 	pScenes[SCENEID_BALLS]->Initialise(*m_pRenderer);
+	m_piBackgrounds[SCENEID_BALLS] = 0xdddddd;
 
 	pScenes[SCENEID_AUT] = new SceneAUT();
 	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer);
+	m_piBackgrounds[SCENEID_AUT] = 0x000000;
 
 	for (int i = 0; i <= NSCENES; i++)
 	{
@@ -144,13 +148,7 @@ void Game::Draw(Renderer &renderer)
 {
 	m_iFrameCount++;
 
-	switch (m_iCurrentScene) {
-	case SCENEID_AUT:
-		renderer.SetClearColour(0x00, 0x00, 0x00);
-		break;
-	default:
-		renderer.SetClearColour(0x00, 0x80, 0xFF);
-	}
+	renderer.SetClearColour(m_piBackgrounds[m_iCurrentScene]);
 	renderer.Clear();
 
 	m_scenes[m_iCurrentScene]->Draw(renderer);
