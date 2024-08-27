@@ -7,6 +7,6 @@
 #define HEIGHT 768
 
 #define SPRITE_PATH "sprite/"
-#define SHADER_PATH ""
+#define SHADER_PATH "shader/"
 
 #endif // DEFS_H

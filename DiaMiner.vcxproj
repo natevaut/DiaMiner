@@ -56,10 +56,6 @@
     <ClInclude Include="game\vertexarray.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="sprite.frag" />
-    <None Include="sprite.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="sprite\anim8strip.png" />
     <Image Include="sprite\anim8stripx2sheet.png" />
     <Image Include="sprite\aut.png" />
@@ -68,6 +64,10 @@
     <Image Include="sprite\board8x2.png" />
     <Image Include="sprite\board8x8.png" />
     <Image Include="sprite\explosion.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\sprite.frag" />
+    <None Include="shader\sprite.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

@@ -15,10 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="sprite.frag" />
-    <None Include="sprite.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="game\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -146,5 +142,13 @@
     <Image Include="sprite\aut.png">
       <Filter>Resource Files</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="shader\sprite.vert">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="shader\sprite.frag">
+      <Filter>Source Files</Filter>
+    </None>
   </ItemGroup>
 </Project>
