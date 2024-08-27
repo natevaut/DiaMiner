@@ -9,8 +9,11 @@
 // Library includes:
 #include <cassert>
 
-Scene::Scene()
+Scene::Scene(int bbWidth, int bbHeight)
 {
+	m_iWidth = bbWidth;
+	m_iHeight = bbHeight;
+	m_background = 0x000000;
 }
 Scene::~Scene()
 {

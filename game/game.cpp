@@ -45,8 +45,8 @@ void Game::Quit()
 
 bool Game::Initialise()
 {
-	int bbWidth = WIDTH;
-	int bbHeight = HEIGHT;
+	int bbWidth = 1080;
+	int bbHeight = 720;
 	m_pRenderer = new Renderer();
 	if (!m_pRenderer->Initialise(true, bbWidth, bbHeight))
 	{
@@ -63,10 +63,10 @@ bool Game::Initialise()
 	m_pScenes = new Scene *[NSCENES + 1];
 	Scene **pScenes = m_pScenes;
 
-	pScenes[SCENEID_MAIN] = new SceneMain();
+	pScenes[SCENEID_MAIN] = new SceneMain(bbWidth, bbHeight);
 	pScenes[SCENEID_MAIN]->Initialise(*m_pRenderer);
 
-	pScenes[SCENEID_AUT] = new SceneAUT();
+	pScenes[SCENEID_AUT] = new SceneAUT(bbWidth, bbHeight);
 	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer);
 
 	for (int i = 0; i <= NSCENES; i++)

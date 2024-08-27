@@ -12,7 +12,7 @@ class SceneMain : public Scene
 {
 	// Member methods:
 public:
-	SceneMain();
+	SceneMain(int width, int height);
 	virtual ~SceneMain();
 	virtual bool Initialise(Renderer &renderer);
 	virtual void Process(float deltaTime);

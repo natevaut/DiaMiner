@@ -1,6 +1,7 @@
 // COMP710 GP Framework 2022
 
 // This include:
+#include "defs.h"
 #include "sprite.h"
 
 // Local includes:

@@ -1,4 +1,3 @@
-#pragma once
 // COMP710 GP Framework 2022
 #ifndef MATRIX4_H
 #define MATRIX4_H

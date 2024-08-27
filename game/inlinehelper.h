@@ -1,5 +1,3 @@
-#pragma once
-
 #ifndef INLINEHELPERS_H
 #define INLINEHELPERS_H
 

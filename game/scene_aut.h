@@ -12,7 +12,7 @@ class SceneAUT : public Scene
 {
 	// Member methods:
 public:
-	SceneAUT();
+	SceneAUT(int width, int height);
 	virtual ~SceneAUT();
 	virtual bool Initialise(Renderer& renderer);
 	virtual void Process(float deltaTime);

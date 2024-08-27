@@ -11,7 +11,7 @@ class Scene
 {
 	// Member methods:
 public:
-	Scene();
+	Scene(int width, int height);
 	virtual ~Scene();
 
 	virtual bool Initialise(Renderer &renderer) = 0;
@@ -24,6 +24,8 @@ public:
 
 protected:
 	int m_background;
+	int m_iWidth;
+	int m_iHeight;
 
 private:
 	Scene(const Scene &scene);

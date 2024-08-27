@@ -7,10 +7,10 @@
 #include "renderer.h"
 #include "sprite.h"
 
-SceneMain::SceneMain()
+SceneMain::SceneMain(int width, int height)
+	: Scene(width, height)
 {
 }
-
 SceneMain::~SceneMain()
 {
 }
@@ -30,8 +30,8 @@ bool SceneMain::Initialise(Renderer &renderer)
 
 	n++;
 	m_pSprites[n] = m_pRenderer->CreateSprite(SPRITE_PATH "board8x8.png");
-	m_pSprites[n]->SetX(200);
-	m_pSprites[n]->SetY(200);
+	m_pSprites[n]->SetX(100);
+	m_pSprites[n]->SetY(100);
 
 	return true;
 }

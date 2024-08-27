@@ -8,16 +8,14 @@
 #include "sprite.h"
 #include <random>
 
-SceneAUT::SceneAUT()
+SceneAUT::SceneAUT(int width, int height)
+	: Scene(width, height)
 {
-
 }
-
 SceneAUT::~SceneAUT()
 {
-
-
 }
+
 bool
 SceneAUT::Initialise(Renderer& renderer)
 {
@@ -31,8 +29,8 @@ SceneAUT::Initialise(Renderer& renderer)
 
 	int n = 0;
 	m_pSprites[n] = m_pRenderer->CreateSprite(SPRITE_PATH "aut.png");
-	m_pSprites[n]->SetX(WIDTH);
-	m_pSprites[n]->SetY(HEIGHT);
+	m_pSprites[n]->SetX(m_iWidth/2);
+	m_pSprites[n]->SetY(m_iHeight/2);
 	m_pSprites[n]->SetScale(-2);
 	n++;
 
