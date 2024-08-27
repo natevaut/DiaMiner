@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -129,12 +130,12 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\sfxr;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\SDL2_ttf-2.22.0\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2-2.0.22\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2_image-2.6.1\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\glew-2.1.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\lib\Studio7Resources\sfxr;$(ProjectDir)\lib\Studio7Resources\SDL2_ttf-2.22.0\include;$(ProjectDir)\lib\Studio5Resources\SDL2-2.0.22\include;$(ProjectDir)\lib\Studio5Resources\SDL2_image-2.6.1\include;$(ProjectDir)\lib\Studio5Resources\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\SDL2_ttf-2.22.0\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2-2.0.22\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2_image-2.6.1\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\glew-2.1.0\lib\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib\Studio7Resources\SDL2_ttf-2.22.0\lib\x86;$(ProjectDir)\lib\Studio5Resources\SDL2-2.0.22\lib\x86;$(ProjectDir)\lib\Studio5Resources\SDL2_image-2.6.1\lib\x86;$(ProjectDir)\lib\Studio5Resources\glew-2.1.0\lib\x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -146,7 +147,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\sfxr;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\SDL2_ttf-2.22.0\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2-2.0.22\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2_image-2.6.1\include;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\glew-2.1.0\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\lib\Studio7Resources\sfxr;$(ProjectDir)\lib\Studio7Resources\SDL2_ttf-2.22.0\include;$(ProjectDir)\lib\Studio5Resources\SDL2-2.0.22\include;$(ProjectDir)\lib\Studio5Resources\SDL2_image-2.6.1\include;$(ProjectDir)\lib\Studio5Resources\glew-2.1.0\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -154,7 +155,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;glew32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio7Resources\SDL2_ttf-2.22.0\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2-2.0.22\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\SDL2_image-2.6.1\lib\x86;C:\Users\Nate\OneDrive - AUT University\2024 S2\COMP710\Individual Assignment\DiaMiner\lib\Studio5Resources\glew-2.1.0\lib\x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\lib\Studio7Resources\SDL2_ttf-2.22.0\lib\x86;$(ProjectDir)\lib\Studio5Resources\SDL2-2.0.22\lib\x86;$(ProjectDir)\lib\Studio5Resources\SDL2_image-2.6.1\lib\x86;$(ProjectDir)\lib\Studio5Resources\glew-2.1.0\lib\x86</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
