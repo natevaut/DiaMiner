@@ -18,7 +18,13 @@ public:
 	virtual void Process(float deltaTime) = 0;
 	virtual void Draw(Renderer &renderer) = 0;
 
+	int GetBackground() {
+		return m_background;
+	}
+
 protected:
+	int m_background;
+
 private:
 	Scene(const Scene &scene);
 	Scene &operator=(const Scene &scene);

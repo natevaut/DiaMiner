@@ -20,6 +20,7 @@ bool SceneBalls::Initialise(Renderer &renderer)
 {
 	srand((int)time(0));
 	Renderer *m_pRenderer = &renderer;
+	m_background = 0xDDDDDD;
 	// Put game objects here
 	m_pSprites = new Sprite *[1000];
 	for (int i = 0; i < 1000; i++)

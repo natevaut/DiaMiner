@@ -34,7 +34,6 @@ protected:
 	int m_iCurrentScene;
 	Scene** m_pScenes;
 	Sprite **m_pSprites;
-	int* m_piBackgrounds;
 	static Game *sm_pInstance;
 	Renderer *m_pRenderer;
 	__int64 m_iLastTime;

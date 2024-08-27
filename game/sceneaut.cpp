@@ -27,6 +27,7 @@ SceneAUT::Initialise(Renderer& renderer)
 	Renderer* m_pRenderer = &renderer;
 	// Put game objects here
 	m_pSprites = new Sprite * [5];
+	m_background = 0x000000;
 
 	m_timeTilComplete = 0;
 

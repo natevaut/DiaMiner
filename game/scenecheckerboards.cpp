@@ -18,6 +18,7 @@ bool SceneCheckerboards::Initialise(Renderer &renderer)
 {
 	Renderer *m_pRenderer = &renderer;
 
+	m_background = 0x0080FF;
 	m_pSprites = new Sprite *[10];
 	for (int i = 0; i < 10; i++)
 	{
