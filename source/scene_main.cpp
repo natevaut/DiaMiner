@@ -43,7 +43,7 @@ bool SceneMain::Initialise(Renderer &renderer)
 	m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
 	m_pAnimSprites[n]->Animate();
 	m_pAnimSprites[n]->SetLooping(true);
-	m_pAnimSprites[n]->SetFrameDuration(0.5f);
+	m_pAnimSprites[n]->SetFrameDuration(0.2f);
 	m_pAnimSprites[n]->SetX(300);
 	m_pAnimSprites[n]->SetY(300);
 	m_pAnimSprites[n]->SetScale(10);
@@ -53,8 +53,8 @@ bool SceneMain::Initialise(Renderer &renderer)
 	m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
 	m_pAnimSprites[n]->Animate();
 	m_pAnimSprites[n]->SetLooping(true);
-	m_pAnimSprites[n]->SetFrameDuration(0.5f);
-	m_pAnimSprites[n]->SetX(300);
+	m_pAnimSprites[n]->SetFrameDuration(0.2f);
+	m_pAnimSprites[n]->SetX(500);
 	m_pAnimSprites[n]->SetY(350);
 	m_pAnimSprites[n]->SetScale(10);
 

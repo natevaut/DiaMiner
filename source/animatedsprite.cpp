@@ -55,11 +55,12 @@ void AnimatedSprite::SetupFrames(int fixedFrameWidth, int fixedFrameHeight)
 			float uOffset = (w * uFrameWidth);
 			float vOffset = (h * vFrameHeight);
 			float quad[] =
-				{
-					0.0f + uOffset, vOffset + vFrameHeight, -0.5f, 0.5f, 0.0f,
-					0.5f, 0.5f, 0.0f, uFrameWidth + uOffset, vOffset + vFrameHeight,
-					0.5f, -0.5f, 0.0f, uFrameWidth + uOffset, vOffset,
-					-0.5f, -0.5f, 0.0f, 0.0f + uOffset, vOffset};
+			{
+				-0.5f,  0.5f, 0, uOffset, vOffset+vFrameHeight,
+				 0.5f,  0.5f, 0, uFrameWidth+uOffset, vOffset+vFrameHeight,
+				 0.5f, -0.5f, 0, uFrameWidth+uOffset, vOffset,
+				-0.5f, -0.5f, 0, uOffset, vOffset,
+			};
 			const int floatsPerSprite = stride * vertsPerSprite;
 			for (int j = 0; j < floatsPerSprite; ++j)
 			{
