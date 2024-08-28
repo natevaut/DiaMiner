@@ -1,8 +1,13 @@
 // COMP710 GP Framework 2022
 // Local includes:
 #include "entity.h"
-Entity::Entity(): m_bAlive(true) {}
+Entity::Entity()
+	: m_bAlive(true)
+	, m_pSprite(0)
+{
+}
 Entity::~Entity() {}
+
 	//bool Entity::Initialise(Renderer& renderer) {}
 	void Entity::Process(float deltaTime) {}
 	void Entity::Draw(Renderer& renderer) {}

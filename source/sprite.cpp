@@ -9,7 +9,14 @@
 #include "texture.h"
 
 Sprite::Sprite()
-	: m_pTexture(0), m_x(0), m_y(0), m_width(0), m_height(0), m_angle(0.0f), m_centerX(0), m_centerY(0), m_scale(1.0f), m_alpha(1.0f), m_tintRed(1.0f), m_tintGreen(1.0f), m_tintBlue(1.0f)
+	: m_pTexture(0)
+	, m_x(0), m_y(0)
+	, m_width(0), m_height(0)
+	, m_angle(0.0f)
+	, m_centerX(0), m_centerY(0)
+	, m_scale(1.0f)
+	, m_alpha(1.0f)
+	, m_tintRed(1.0f), m_tintGreen(1.0f), m_tintBlue(1.0f)
 {
 }
 Sprite::~Sprite()

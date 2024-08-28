@@ -30,7 +30,16 @@ void Game::DestroyInstance()
 }
 
 Game::Game()
-	: m_pRenderer(0), m_bLooping(true)
+	: m_pRenderer(0)
+	, m_bLooping(true)
+	, m_fElapsedSeconds(0)
+	, m_iLastTime(0)
+	, m_fExecutionTime(0)
+	, m_iFrameCount(0)
+	, m_iFPS(0)
+	, m_iCurrentScene(SCENEID_AUT)
+	, m_pScenes(0)
+	, m_pSprites(0)
 {
 }
 Game::~Game()
@@ -59,7 +68,6 @@ bool Game::Initialise()
 
 	// Setup scenes
 
-	m_iCurrentScene = SCENEID_AUT;
 	m_pScenes = new Scene *[NSCENES + 1];
 	Scene **pScenes = m_pScenes;
 

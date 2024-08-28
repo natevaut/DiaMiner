@@ -9,6 +9,7 @@
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
+	, m_pSprites(0)
 {
 }
 SceneMain::~SceneMain()

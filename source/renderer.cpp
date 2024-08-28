@@ -19,7 +19,13 @@
 #include <cmath>
 
 Renderer::Renderer()
-	: m_pTextureManager(0), m_pSpriteShader(0), m_pSpriteVertexData(0), m_glContext(0), m_iWidth(0), m_iHeight(0), m_fClearRed(0.0f), m_fClearGreen(0.0f), m_fClearBlue(0.0f)
+	: m_pTextureManager(0)
+	, m_pSpriteShader(0)
+	, m_pSpriteVertexData(0)
+	, m_glContext(0)
+	, m_iWidth(0), m_iHeight(0)
+	, m_fClearRed(0.0f), m_fClearGreen(0.0f), m_fClearBlue(0.0f)
+	, m_pWindow(0)
 {
 }
 Renderer::~Renderer()

@@ -10,6 +10,8 @@
 
 SceneAUT::SceneAUT(int width, int height)
 	: Scene(width, height)
+	, m_pSprites(0)
+	, m_timeTilComplete(0)
 {
 }
 SceneAUT::~SceneAUT()
