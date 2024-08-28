@@ -22,6 +22,12 @@
     <ClInclude Include="game\defs.h" />
     <ClInclude Include="source\animatedsprite.h" />
     <ClInclude Include="source\defs.h" />
+    <ClInclude Include="source\DM_Enemy.h" />
+    <ClInclude Include="source\DM_Entity.h" />
+    <ClInclude Include="source\DM_Game.h" />
+    <ClInclude Include="source\DM_Player.h" />
+    <ClInclude Include="source\DM_Tile.h" />
+    <ClInclude Include="source\DM_World.h" />
     <ClInclude Include="source\entity.h" />
     <ClInclude Include="source\game.h" />
     <ClInclude Include="source\inlinehelper.h" />
@@ -50,6 +56,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="source\animatedsprite.cpp" />
+    <ClCompile Include="source\DM_Enemy.cpp" />
+    <ClCompile Include="source\DM_Entity.cpp" />
+    <ClCompile Include="source\DM_Game.cpp" />
+    <ClCompile Include="source\DM_Player.cpp" />
+    <ClCompile Include="source\DM_World.cpp" />
     <ClCompile Include="source\entity.cpp" />
     <ClCompile Include="source\game.cpp" />
     <ClCompile Include="source\logmanager.cpp" />

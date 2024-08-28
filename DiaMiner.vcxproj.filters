@@ -13,61 +13,85 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\source">
+      <UniqueIdentifier>{62f44679-08a2-45b9-b625-ac5eefa51759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\source\GPFramework">
+      <UniqueIdentifier>{f4793a57-167b-4379-b3c9-24b296b11962}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="source\entity.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\game.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\inlinehelper.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\logmanager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\matrix4.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\renderer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\scene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\scene_aut.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\scene_main.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\shader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\sprite.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\texture.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\texturemanager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\vector2.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="source\vertexarray.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="source\defs.h">
+      <Filter>Source Files\source</Filter>
     </ClInclude>
     <ClInclude Include="source\animatedsprite.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\source\GPFramework</Filter>
     </ClInclude>
-    <ClInclude Include="source\defs.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="source\entity.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\game.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\inlinehelper.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\logmanager.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\matrix4.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\renderer.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene_aut.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene_main.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\shader.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\sprite.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\texture.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\texturemanager.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vector2.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vertexarray.h">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_Entity.h">
+      <Filter>Source Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_Player.h">
+      <Filter>Source Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_Enemy.h">
+      <Filter>Source Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_Tile.h">
+      <Filter>Source Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_World.h">
+      <Filter>Source Files\source</Filter>
+    </ClInclude>
+    <ClInclude Include="source\DM_Game.h">
+      <Filter>Source Files\source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -97,53 +121,68 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="source\entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\logmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\matrix4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\scene_aut.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\scene_main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\texturemanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="source\vertexarray.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="source\DM_Entity.cpp">
+      <Filter>Source Files\source</Filter>
     </ClCompile>
     <ClCompile Include="source\animatedsprite.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\entity.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\game.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\logmanager.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\matrix4.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\renderer.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene_aut.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene_main.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\shader.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sprite.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\texture.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\texturemanager.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vector2.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vertexarray.cpp">
+      <Filter>Source Files\source\GPFramework</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_Player.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_Enemy.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_World.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
+    <ClCompile Include="source\DM_Game.cpp">
+      <Filter>Source Files\source</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
