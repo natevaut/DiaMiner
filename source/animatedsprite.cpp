@@ -116,8 +116,9 @@ void AnimatedSprite::Process(float deltaTime)
 }
 void AnimatedSprite::Draw(Renderer &renderer)
 {
-	assert(m_pVertexData);
+	assert(m_pTexture);
 	m_pTexture->SetActive();
+	assert(m_pVertexData);
 	m_pVertexData->SetActive();							 // Set the vertex data required for this
 														 // animated sprite before drawing it.
 	renderer.DrawAnimatedSprite(*this, m_iCurrentFrame); // Draw the current frame

@@ -7,6 +7,7 @@
 // Forward declarations:
 class Renderer;
 class Sprite;
+class AnimatedSprite;
 // Class declaration:
 class SceneMain : public Scene
 {
@@ -28,6 +29,7 @@ public:
 private:
 protected:
 	Sprite **m_pSprites;
+	AnimatedSprite** m_pAnimSprites;
 };
 
 #endif //   SCENEMAIN_H
