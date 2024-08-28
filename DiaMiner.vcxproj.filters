@@ -15,105 +15,58 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game\game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\logmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\matrix4.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\scene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\shader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\sprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\texture.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\texturemanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\vector2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\vertexarray.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\entity.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\animatedsprite.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\scene_aut.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="game\scene_main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="game\game.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\logmanager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\matrix4.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\renderer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\scene.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\shader.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\sprite.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\texture.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\texturemanager.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\vector2.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\vertexarray.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\entity.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\inlinehelper.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="game\animatedsprite.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="game\defs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\scene_aut.h">
+    <ClInclude Include="source\entity.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="game\scene_main.h">
+    <ClInclude Include="source\game.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\inlinehelper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\logmanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\matrix4.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\renderer.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene_aut.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\scene_main.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\shader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\sprite.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\texture.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\texturemanager.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vector2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\vertexarray.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\animatedsprite.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="source\defs.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -144,11 +97,53 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\sprite.vert">
+    <ClCompile Include="source\entity.cpp">
       <Filter>Source Files</Filter>
-    </None>
-    <None Include="shader\sprite.frag">
+    </ClCompile>
+    <ClCompile Include="source\game.cpp">
       <Filter>Source Files</Filter>
-    </None>
+    </ClCompile>
+    <ClCompile Include="source\logmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\matrix4.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene_aut.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\scene_main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\texturemanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vector2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\vertexarray.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="source\animatedsprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

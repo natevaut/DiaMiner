@@ -19,41 +19,24 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="game\animatedsprite.cpp" />
-    <ClCompile Include="game\entity.cpp" />
-    <ClCompile Include="game\game.cpp" />
-    <ClCompile Include="game\logmanager.cpp" />
-    <ClCompile Include="game\main.cpp" />
-    <ClCompile Include="game\matrix4.cpp" />
-    <ClCompile Include="game\renderer.cpp" />
-    <ClCompile Include="game\scene.cpp" />
-    <ClCompile Include="game\scene_aut.cpp" />
-    <ClCompile Include="game\scene_main.cpp" />
-    <ClCompile Include="game\shader.cpp" />
-    <ClCompile Include="game\sprite.cpp" />
-    <ClCompile Include="game\texture.cpp" />
-    <ClCompile Include="game\texturemanager.cpp" />
-    <ClCompile Include="game\vector2.cpp" />
-    <ClCompile Include="game\vertexarray.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="game\animatedsprite.h" />
     <ClInclude Include="game\defs.h" />
-    <ClInclude Include="game\entity.h" />
-    <ClInclude Include="game\game.h" />
-    <ClInclude Include="game\inlinehelper.h" />
-    <ClInclude Include="game\logmanager.h" />
-    <ClInclude Include="game\matrix4.h" />
-    <ClInclude Include="game\renderer.h" />
-    <ClInclude Include="game\scene.h" />
-    <ClInclude Include="game\scene_aut.h" />
-    <ClInclude Include="game\scene_main.h" />
-    <ClInclude Include="game\shader.h" />
-    <ClInclude Include="game\sprite.h" />
-    <ClInclude Include="game\texture.h" />
-    <ClInclude Include="game\texturemanager.h" />
-    <ClInclude Include="game\vector2.h" />
-    <ClInclude Include="game\vertexarray.h" />
+    <ClInclude Include="source\animatedsprite.h" />
+    <ClInclude Include="source\defs.h" />
+    <ClInclude Include="source\entity.h" />
+    <ClInclude Include="source\game.h" />
+    <ClInclude Include="source\inlinehelper.h" />
+    <ClInclude Include="source\logmanager.h" />
+    <ClInclude Include="source\matrix4.h" />
+    <ClInclude Include="source\renderer.h" />
+    <ClInclude Include="source\scene.h" />
+    <ClInclude Include="source\scene_aut.h" />
+    <ClInclude Include="source\scene_main.h" />
+    <ClInclude Include="source\shader.h" />
+    <ClInclude Include="source\sprite.h" />
+    <ClInclude Include="source\texture.h" />
+    <ClInclude Include="source\texturemanager.h" />
+    <ClInclude Include="source\vector2.h" />
+    <ClInclude Include="source\vertexarray.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="sprite\anim8strip.png" />
@@ -66,8 +49,22 @@
     <Image Include="sprite\explosion.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader\sprite.frag" />
-    <None Include="shader\sprite.vert" />
+    <ClCompile Include="source\animatedsprite.cpp" />
+    <ClCompile Include="source\entity.cpp" />
+    <ClCompile Include="source\game.cpp" />
+    <ClCompile Include="source\logmanager.cpp" />
+    <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\matrix4.cpp" />
+    <ClCompile Include="source\renderer.cpp" />
+    <ClCompile Include="source\scene.cpp" />
+    <ClCompile Include="source\scene_aut.cpp" />
+    <ClCompile Include="source\scene_main.cpp" />
+    <ClCompile Include="source\shader.cpp" />
+    <ClCompile Include="source\sprite.cpp" />
+    <ClCompile Include="source\texture.cpp" />
+    <ClCompile Include="source\texturemanager.cpp" />
+    <ClCompile Include="source\vector2.cpp" />
+    <ClCompile Include="source\vertexarray.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
