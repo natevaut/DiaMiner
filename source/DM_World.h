@@ -15,7 +15,7 @@ public:
     ~DM_World();
 
     void move(int dx, int dy);
-    void mineBelow();
+    void mineBelow(int x, int y);
 
 private:
     int getStack(int x, int y);
@@ -29,8 +29,5 @@ public:
     int hOffset;
     DM_Tile*** *pTiles;
 };
-#define sizeA width
-#define sizeB height
-#define sizeC depth
 
 #endif // DM_WORLD_H

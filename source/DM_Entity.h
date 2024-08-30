@@ -8,7 +8,7 @@ class DM_Entity
 {
     //methods
 public:
-    DM_Entity(int x, int y, int health, int money);
+    DM_Entity(float x, float y, int health, int money);
     virtual ~DM_Entity();
     
     virtual void tick() = 0;
@@ -17,8 +17,8 @@ public:
 public:
     byte health;
     int money;
-    int xTile;
-    int yTile;
+    float xTile;
+    float yTile;
 };
 
 #endif // DM_ENTITY_H

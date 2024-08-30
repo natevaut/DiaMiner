@@ -24,7 +24,6 @@ SceneMain::SceneMain(int width, int height)
 	, m_pSprites(NULL)
 	, m_pAnimSprites(NULL)
 	, m_pGame(NULL)
-	, m_spriteN(0)
 {
 }
 SceneMain::~SceneMain()
@@ -32,24 +31,19 @@ SceneMain::~SceneMain()
 }
 bool SceneMain::Initialise(Renderer& renderer)
 {
-	Renderer* pRenderer = &renderer;
+	m_pRenderer = &renderer;
 
 	m_background = 0xdddddd;
 
 	m_pSprites = new Sprite * [NSPRITES];
-	m_pAnimSprites = new AnimatedSprite * [NSPRITES];
 	for (int i = 0; i < NSPRITES; i++)
 	{
-		m_pSprites[i] = 0;
-		m_pAnimSprites[i] = 0;
+		m_pSprites[i] = NULL;
 	}
 
 	m_pGame = new DM_Game;
-	m_pGame->pPlayer->tick();
 
-	createWorldTileSprites(pRenderer);
-
-	Sprite *player = pRenderer->CreateSprite(SPRITE_PATH "player.png");
+	Sprite *player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
 	m_pSprites[0] = player;
 
 	return true;
@@ -57,9 +51,25 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 void SceneMain::Process(float deltaTime)
 {
-	// set player data
-	m_pSprites[0]->SetX(WORLD_START_X + m_pGame->pPlayer->xTile * SCALE);
-	m_pSprites[0]->SetY(WORLD_START_Y + m_pGame->pPlayer->yTile * SCALE);
+	// Player Tick
+	DM_Player* pPlayer = m_pGame->pPlayer;
+
+	// ensure bounds
+	int width = m_pGame->pWorld->width;
+	int height = m_pGame->pWorld->height;
+	if (pPlayer->xTile < 0.0f)
+		pPlayer->xTile = 0.0f;
+	if (pPlayer->xTile > width)
+		pPlayer->xTile = width;
+	if (pPlayer->yTile < 0.0f)
+		pPlayer->yTile = 0.0f;
+	if (pPlayer->yTile > height)
+		pPlayer->yTile = height;
+
+	m_pSprites[0]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
+	m_pSprites[0]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+
+	createWorldTileSprites(m_pRenderer);
 
 	// process all
 	for (int i = 0; i < NSPRITES; i++)
@@ -88,25 +98,35 @@ void SceneMain::Draw(Renderer &renderer)
 }
 
 void SceneMain::ProcessInput(const Uint8* state) {
-	if (state[SDL_SCANCODE_W]) m_pGame->pPlayer->move(0, -1); // Move up
-	if (state[SDL_SCANCODE_A]) m_pGame->pPlayer->move(-1, 0); // Move left
-	if (state[SDL_SCANCODE_S]) m_pGame->pPlayer->move(0, +1); // Move down
-	if (state[SDL_SCANCODE_D]) m_pGame->pPlayer->move(+1, 0); // Move right
+	DM_Player* pPlayer = m_pGame->pPlayer;
+	DM_World* pWorld = m_pGame->pWorld;
+	if (state[SDL_SCANCODE_W]) pPlayer->move(0, -0.1f); // Move up
+	if (state[SDL_SCANCODE_A]) pPlayer->move(-0.1f, 0); // Move left
+	if (state[SDL_SCANCODE_S]) pPlayer->move(0, +0.1f); // Move down
+	if (state[SDL_SCANCODE_D]) pPlayer->move(+0.1f, 0); // Move right
+	if (state[SDL_SCANCODE_X]) pPlayer->mineBelow(pWorld); // Mine down
 }
 
 void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 	DM_World* pWorld = m_pGame->pWorld;
 	DM_Tile*** *pTiles = pWorld->pTiles;
 	bool loop = true;
-	for (int i = 0; loop && i < pWorld->sizeA; i++)
-		for (int j = 0; loop && j < pWorld->sizeB; j++)
-			for (int k = 0; loop && k < pWorld->sizeC; k++)
+
+	int n = 0;
+	m_pAnimSprites = new AnimatedSprite * [NSPRITES];
+	for (int i = 0; i < NSPRITES; i++) {
+		m_pAnimSprites[i] = NULL;
+	}
+
+	for (int i = 0; loop && i < pWorld->width; i++)
+		for (int j = 0; loop && j < pWorld->height; j++)
+			for (int k = 0; loop && k < pWorld->depth; k++)
 			{
 				DM_Tile *pTile = pTiles[i][j][k];
 				if (pTile == NULL)
-					continue;
+					break;
 
-				if (m_spriteN >= NSPRITES)
+				if (n >= NSPRITES)
 				{
 					LogManager::GetInstance().Log("WARNING: Memory too small to load all sprites!");
 					loop = false;
@@ -136,6 +156,6 @@ void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 				sprite->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
 				sprite->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
 				sprite->SetScale(SCALE);
-				m_pAnimSprites[m_spriteN++] = sprite;
+				m_pAnimSprites[n++] = sprite;
 			}
 }

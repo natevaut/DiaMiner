@@ -38,7 +38,7 @@ protected:
 	Sprite **m_pSprites;
 	AnimatedSprite** m_pAnimSprites;
 private:
-	int m_spriteN;
+	Renderer* m_pRenderer;
 };
 
 #endif //   SCENEMAIN_H

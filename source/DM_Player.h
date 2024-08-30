@@ -4,6 +4,8 @@
 
 #include "DM_Entity.h"
 
+class DM_World;
+
 class DM_Player : public DM_Entity
 {
     //methods:
@@ -16,11 +18,12 @@ public:
 
     void damage(int value);
 
-    void move(int dx, int dy);
+    void move(float dx, float dy);
 
-    void mineBelow();
+    void mineBelow(DM_World* pWorld);
 
     // instance variables:
+protected:
 
 };
 
