@@ -2,6 +2,8 @@
 #ifndef DM_TILE_H
 #define DM_TILE_H
 
+#define TILE_SIZE_PX 16
+
 enum class DM_TileType
 {
     STONE,
@@ -14,17 +16,10 @@ class DM_Tile
     // methods:
 public:
 
-    DM_Tile()
-        : type(DM_TileType::STONE), reward(0)
-    {
-    }
+    DM_Tile();
+    DM_Tile(DM_TileType type, int reward);
 
-    DM_Tile(DM_TileType type, int reward)
-        : type(type), reward(reward)
-    {
-    }
-
-    static void WeightedRandTile(DM_Tile* tile);
+    static DM_Tile WeightedRandTile();
 
     // instance variables:
 public:

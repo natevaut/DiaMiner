@@ -8,6 +8,7 @@
 class Renderer;
 class Sprite;
 class AnimatedSprite;
+class DM_Game;
 // Class declaration:
 class SceneMain : public Scene
 {
@@ -29,6 +30,7 @@ public:
 private:
 protected:
 	Sprite **m_pSprites;
+	DM_Game* m_pGame;
 	AnimatedSprite** m_pAnimSprites;
 };
 

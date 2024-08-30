@@ -4,8 +4,7 @@
 
 #include "DM_Tile.h"
 
-#define SEED 100
-#define TILE_DEPTH 10
+#define TILE_DEPTH 3
 
 class DM_World
 {
@@ -23,11 +22,15 @@ private:
 
     // instance variables
 public:
-    const int m_width;
-    const int m_height;
-    int m_wOffset;
-    int m_hOffset;
-    DM_Tile**** m_pTiles;
+    const int width;
+    const int height;
+    const int depth;
+    int wOffset;
+    int hOffset;
+    DM_Tile*** tiles;
 };
+#define sizeA width
+#define sizeB height
+#define sizeC depth
 
 #endif // DM_WORLD_H

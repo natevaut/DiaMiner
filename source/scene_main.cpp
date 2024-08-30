@@ -1,71 +1,99 @@
 // COMP710 GP Framework 2022
-// This include:
+
 #include "scene_main.h"
 
-// Local includes:
+#include <random>
+
 #include "animatedsprite.h"
 #include "defs.h"
 #include "renderer.h"
 #include "sprite.h"
+#include "logmanager.h"
+#include "inlinehelper.h"
 
-const int NSPRITES = 10;
+#include "DM_Game.h"
+#include "DM_Tile.h"
+
+const int NSPRITES = 500;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
-	, m_pSprites(0)
-	, m_pAnimSprites(0)
+	, m_pSprites(NULL)
+	, m_pAnimSprites(NULL)
+	, m_pGame(NULL)
 {
 }
 SceneMain::~SceneMain()
 {
 }
-bool SceneMain::Initialise(Renderer &renderer)
+bool SceneMain::Initialise(Renderer& renderer)
 {
-	Renderer *m_pRenderer = &renderer;
+	Renderer* pRenderer = &renderer;
 
 	m_background = 0xdddddd;
 
-	m_pSprites = new Sprite*[NSPRITES];
-	m_pAnimSprites = new AnimatedSprite*[NSPRITES];
+	m_pSprites = new Sprite * [NSPRITES];
+	m_pAnimSprites = new AnimatedSprite * [NSPRITES];
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		m_pSprites[i] = 0;
 		m_pAnimSprites[i] = 0;
 	}
 
-	int n;
+	m_pGame = new DM_Game;
 
-	// Animated sprites
-	n = -1;
-	// bomb
-	n++;
-	m_pAnimSprites[n] = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "tile_bomb.png");
-	m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
-	m_pAnimSprites[n]->Animate();
-	m_pAnimSprites[n]->SetLooping(true);
-	m_pAnimSprites[n]->SetFrameDuration(0.2f);
-	m_pAnimSprites[n]->SetX(300);
-	m_pAnimSprites[n]->SetY(300);
-	m_pAnimSprites[n]->SetScale(10);
-	// diamond
-	n++;
-	m_pAnimSprites[n] = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "tile_diamond.png");
-	m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
-	m_pAnimSprites[n]->Animate();
-	m_pAnimSprites[n]->SetLooping(true);
-	m_pAnimSprites[n]->SetFrameDuration(0.2f);
-	m_pAnimSprites[n]->SetX(500);
-	m_pAnimSprites[n]->SetY(350);
-	m_pAnimSprites[n]->SetScale(10);
+	const int SCALE = 5;
+	const int WORLD_START_X = 100;
+	const int WORLD_START_Y = 300;
 
-	// Plain sprites
-	n = -1;
-	// stone
-	n++;
-	m_pSprites[n] = m_pRenderer->CreateSprite(SPRITE_PATH "tile_stone.png");
-	m_pSprites[n]->SetX(300);
-	m_pSprites[n]->SetY(500);
-	m_pSprites[n]->SetScale(10);
+	// create sprites from world tiles
+	DM_World* pWorld = m_pGame->pWorld;
+	DM_Tile*** tiles = pWorld->tiles;
+	int n = 0;
+	bool loop = true;
+	for (int i = 0; loop && i < pWorld->sizeA; i++)
+	 for (int j = 0; loop && j < pWorld->sizeB; j++)
+	  for (int k = 0; loop && k < pWorld->sizeC; k++)
+		{
+			DM_Tile tile = tiles[i][j][k];
+
+			if (n >= NSPRITES)
+			{
+				LogManager::GetInstance().Log("WARNING: Memory too small to load all sprites!");
+				loop = false;
+				break;
+			}
+
+			const char* filename;
+			switch (tile.type)
+			{
+			case DM_TileType::STONE:
+				filename = SPRITE_PATH "tile_stone.png";
+				break;
+			case DM_TileType::DIAMOND:
+				filename = SPRITE_PATH "tile_diamond.png";
+				break;
+			case DM_TileType::EXPLOSIVE:
+				filename = SPRITE_PATH "tile_bomb.png";
+				break;
+			default:
+				filename = SPRITE_PATH "tile_stone.png";
+			}
+			LogManager::GetInstance().LogPart("Making new tile: ");
+			LogManager::GetInstance().Log(filename);
+
+			// create animated sprite
+			m_pAnimSprites[n] = pRenderer->CreateAnimatedSprite(filename);
+			m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
+			m_pAnimSprites[n]->Animate();
+			m_pAnimSprites[n]->SetLooping(true);
+			m_pAnimSprites[n]->SetFrameDuration(0.2f);
+			m_pAnimSprites[n]->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
+			m_pAnimSprites[n]->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
+			m_pAnimSprites[n]->SetScale(SCALE);
+			
+			n++;
+		}
 
 	return true;
 }

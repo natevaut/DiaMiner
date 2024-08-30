@@ -1,30 +1,28 @@
 // Nate Evans 21144881
 #include "DM_World.h"
 
-#include <random>
-
 #include "inlinehelper.h"
 
 DM_World::DM_World(int w, int h)
-    : m_width(w), m_height(h)
-    , m_wOffset(0), m_hOffset(0)
+    : width(w), height(h), depth(TILE_DEPTH)
+    , wOffset(0), hOffset(0)
 {
-    srand(SEED);
     // mem allocate
-    m_pTiles = new DM_Tile***[m_width];
-    for (int i = 0; i < m_width; ++i)
+    tiles = new DM_Tile**[sizeA];
+    for (int i = 0; i < sizeA; ++i)
     {
-        m_pTiles[i] = new DM_Tile**[m_height];
-        for (int j = 0; j < m_height; ++j)
-        {
-            m_pTiles[i][j] = new DM_Tile*[TILE_DEPTH];
+        tiles[i] = new DM_Tile*[sizeB];
 
-            // fill world
-            for (int k = 0; k < TILE_DEPTH; k++)
+        for (int j = 0; j < sizeB; ++j)
+        {
+            tiles[i][j] = new DM_Tile[sizeC];
+
+            for (int k = 0; k < sizeC; k++)
             {
-                DM_Tile* pTile = new DM_Tile;
-                DM_Tile::WeightedRandTile(pTile);
-                m_pTiles[i][j][k] = pTile;
+                DM_Tile tile = DM_Tile::WeightedRandTile();
+                if (k == TILE_DEPTH - 1) // top layer
+                    tile = DM_Tile(); // clear tile (make it stone)
+                tiles[i][j][k] = tile;
             }
         }
     }
@@ -33,21 +31,21 @@ DM_World::DM_World(int w, int h)
 DM_World::~DM_World()
 {
     // free all mem alloc
-    for (int i = 0; i < m_width; ++i)
+    for (int i = 0; i < sizeA; ++i)
     {
-        for (int j = 0; j < m_height; ++j)
+        for (int j = 0; j < sizeB; ++j)
         {
-            delete m_pTiles[i][j];
+            delete tiles[i][j];
         }
-        delete[] m_pTiles[i];
+        delete[] tiles[i];
     }
-    delete[] m_pTiles;
+    delete[] tiles;
 }
 
 void DM_World::move(int dx, int dy)
 {
-    m_wOffset += dx;
-    m_hOffset += dy;
+    wOffset += dx;
+    hOffset += dy;
 }
 
 void DM_World::mineBelow()

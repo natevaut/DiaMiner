@@ -4,29 +4,44 @@
 #include "inlinehelper.h"
 
 const int MAX_DIAM_WORTH = 1000;
-const float DIAM_CHANCE = 0.05f; //  5% chance of diamond
-const float BOMB_CHANCE = 0.05f; //  5% chance of bomb
-                                 // 90% chance of stone
+const float DIAM_CHANCE = 0.02f; //  2% chance of diamond
+const float BOMB_CHANCE = 0.03f; //  3% chance of bomb
+                                 // 95% chance of stone
 
-void DM_Tile::WeightedRandTile(DM_Tile* tile)
+DM_Tile::DM_Tile()
+	: type(DM_TileType::STONE)
+	, reward(0)
 {
-	float rand = GetRandomPercentage();
-	if (rand -= DIAM_CHANCE < 0)
+}
+
+DM_Tile::DM_Tile(DM_TileType type, int reward)
+	: type(type)
+	, reward(reward)
+{
+}
+
+DM_Tile DM_Tile::WeightedRandTile()
+{
+	DM_Tile tile;
+
+	if (GetRandomPercentage() <= DIAM_CHANCE)
 	{
 		// Diamond
-		tile->type = DM_TileType::DIAMOND;
-		tile->reward = GetRandom(1, MAX_DIAM_WORTH);
+		tile.type = DM_TileType::DIAMOND;
+		tile.reward = GetRandom(1, MAX_DIAM_WORTH);
 	}
-	else if (rand -= BOMB_CHANCE < 0)
+	else if (GetRandomPercentage() <= BOMB_CHANCE)
 	{
 		// Bomb
-		tile->type = DM_TileType::EXPLOSIVE;
-		tile->reward = 0; // default
+		tile.type = DM_TileType::EXPLOSIVE;
+		tile.reward = 0; // default
 	}
 	else
 	{
 		// Stone
-		tile->type = DM_TileType::STONE; // default
-		tile->reward = 0; // default
+		tile.type = DM_TileType::STONE; // default
+		tile.reward = 0; // default
 	}
+
+	return tile;
 }
