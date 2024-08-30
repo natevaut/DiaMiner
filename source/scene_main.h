@@ -25,6 +25,8 @@ private:
 	SceneMain(const SceneMain&scene);
 	SceneMain&operator=(const SceneMain&scene);
 
+	void createWorldTileSprites(Renderer* pRenderer);
+
 	// Member data:
 public:
 private:
