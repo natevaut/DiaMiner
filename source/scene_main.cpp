@@ -64,12 +64,12 @@ void SceneMain::Process(float deltaTime)
 	int height = m_pGame->pWorld->height;
 	if (pPlayer->xTile < 0.0f)
 		pPlayer->xTile = 0.0f;
-	if (pPlayer->xTile > width)
-		pPlayer->xTile = width;
+	if (pPlayer->xTile > width - 1)
+		pPlayer->xTile = width - 1;
 	if (pPlayer->yTile < 0.0f)
 		pPlayer->yTile = 0.0f;
-	if (pPlayer->yTile > height)
-		pPlayer->yTile = height;
+	if (pPlayer->yTile > height - 1)
+		pPlayer->yTile = height - 1;
 
 	m_pSprites[0]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
 	m_pSprites[0]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
