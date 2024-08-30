@@ -89,9 +89,9 @@ void SceneMain::Draw(Renderer &renderer)
 	DM_World* pWorld = m_pGame->pWorld;
 
 	// draw tile sprites
-	for (int i = 0; i < pWorld->width; ++i)
-		for (int j = 0; j < pWorld->height; ++j)
-			for (int k = 0; k < pWorld->depth; ++k)
+	for (int i = 0; i < pWorld->sizeA; ++i)
+		for (int j = 0; j < pWorld->sizeB; ++j)
+			for (int k = 0; k < pWorld->sizeC; ++k)
 			{
 				if (pWorld->pTiles[i][j][k] != NULL)
 					m_pTileSprites[i][j][k]->Draw(renderer);
@@ -119,21 +119,21 @@ void SceneMain::createWorldTileSprites() {
 	DM_Tile**** pTiles = pWorld->pTiles;
 
 	// mem allocation for tile sprites
-	m_pTileSprites = new AnimatedSprite***[pWorld->width];
-	for (int i = 0; i < pWorld->width; ++i)
+	m_pTileSprites = new AnimatedSprite***[pWorld->sizeA];
+	for (int i = 0; i < pWorld->sizeA; ++i)
 	{
-		m_pTileSprites[i] = new AnimatedSprite**[pWorld->height];
-		for (int j = 0; j < pWorld->height; ++j)
+		m_pTileSprites[i] = new AnimatedSprite**[pWorld->sizeB];
+		for (int j = 0; j < pWorld->sizeB; ++j)
 		{
-			m_pTileSprites[i][j] = new AnimatedSprite*[pWorld->depth];
+			m_pTileSprites[i][j] = new AnimatedSprite*[pWorld->sizeC];
 		}
 	}
 
 	bool loop = true;
 	int n = 0;
-	for (int i = 0; loop && i < pWorld->width; i++)
-		for (int j = 0; loop && j < pWorld->height; j++)
-			for (int k = 0; loop && k < pWorld->depth; k++)
+	for (int i = 0; loop && i < pWorld->sizeA; i++)
+		for (int j = 0; loop && j < pWorld->sizeB; j++)
+			for (int k = 0; loop && k < pWorld->sizeC; k++)
 			{
 				DM_Tile *pTile = pTiles[i][j][k];
 				if (pTile == NULL)

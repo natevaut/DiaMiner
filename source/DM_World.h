@@ -29,5 +29,8 @@ public:
     int hOffset;
     DM_Tile*** *pTiles;
 };
+#define sizeA height
+#define sizeB width
+#define sizeC depth
 
 #endif // DM_WORLD_H

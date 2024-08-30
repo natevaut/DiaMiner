@@ -11,16 +11,16 @@ DM_World::DM_World(int w, int h)
     , wOffset(0), hOffset(0)
 {
     // mem allocate
-    pTiles = new DM_Tile***[width];
-    for (int i = 0; i < width; ++i)
+    pTiles = new DM_Tile***[sizeA];
+    for (int i = 0; i < sizeA; ++i)
     {
-        pTiles[i] = new DM_Tile**[height];
+        pTiles[i] = new DM_Tile**[sizeB];
 
-        for (int j = 0; j < height; ++j)
+        for (int j = 0; j < sizeB; ++j)
         {
-            pTiles[i][j] = new DM_Tile*[depth];
+            pTiles[i][j] = new DM_Tile*[sizeC];
 
-            for (int k = 0; k < depth; k++)
+            for (int k = 0; k < sizeC; k++)
             {
                 DM_Tile *pTile = DM_Tile::WeightedRandTile();
                 if (k == depth - 1) // top layer
@@ -36,11 +36,11 @@ DM_World::DM_World(int w, int h)
 DM_World::~DM_World()
 {
     // free all mem allocs
-    for (int i = 0; i < width; ++i)
+    for (int i = 0; i < sizeA; ++i)
     {
-        for (int j = 0; j < height; ++j)
+        for (int j = 0; j < sizeB; ++j)
         {
-            for (int k = 0; k < depth; ++k)
+            for (int k = 0; k < sizeC; ++k)
                 delete pTiles[i][j][k];
             delete[] pTiles[i][j];
         }
@@ -58,16 +58,16 @@ void DM_World::move(int dx, int dy)
 void DM_World::mineBelow(int x, int y)
 {
     assert(pTiles);
-    assert(pTiles[x]);
-    assert(pTiles[x][y]);
+    assert(pTiles[y]);
+    assert(pTiles[y][x]);
 
     // find top tile of stack
-    for (int k = 0; k < depth; k++)
+    for (int k = 0; k < sizeC; k++)
     {
-        if (k == depth - 1 || pTiles[x][y][k + 1] == NULL) // if is top or above is empty
+        if (k == sizeC - 1 || pTiles[y][x][k + 1] == NULL) // if is top or above is empty
         {
             // break top tile
-            pTiles[x][y][k] = NULL;
+            pTiles[y][x][k] = NULL;
             LogManager::GetInstance().Log("Tile broken.");
             break;
         }
