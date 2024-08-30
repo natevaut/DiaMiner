@@ -1,10 +1,15 @@
 // Nate Evans 21144881
 #include "DM_World.h"
 
+#include <random>
+
+#include "inlinehelper.h"
+
 DM_World::DM_World(int w, int h)
     : m_width(w), m_height(h)
     , m_wOffset(0), m_hOffset(0)
 {
+    srand(SEED);
     // mem allocate
     m_pTiles = new DM_Tile***[m_width];
     for (int i = 0; i < m_width; ++i)
@@ -13,6 +18,14 @@ DM_World::DM_World(int w, int h)
         for (int j = 0; j < m_height; ++j)
         {
             m_pTiles[i][j] = new DM_Tile*[TILE_DEPTH];
+
+            // fill world
+            for (int k = 0; k < TILE_DEPTH; k++)
+            {
+                DM_Tile* pTile = new DM_Tile;
+                DM_Tile::WeightedRandTile(pTile);
+                m_pTiles[i][j][k] = pTile;
+            }
         }
     }
 }

@@ -60,6 +60,7 @@
     <ClCompile Include="source\DM_Entity.cpp" />
     <ClCompile Include="source\DM_Game.cpp" />
     <ClCompile Include="source\DM_Player.cpp" />
+    <ClCompile Include="source\DM_Tile.cpp" />
     <ClCompile Include="source\DM_World.cpp" />
     <ClCompile Include="source\entity.cpp" />
     <ClCompile Include="source\game.cpp" />

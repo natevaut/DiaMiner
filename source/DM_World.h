@@ -4,6 +4,7 @@
 
 #include "DM_Tile.h"
 
+#define SEED 100
 #define TILE_DEPTH 10
 
 class DM_World

@@ -184,5 +184,8 @@
     <ClCompile Include="source\DM_Game.cpp">
       <Filter>Source Files\source</Filter>
     </ClCompile>
+    <ClCompile Include="source\DM_Tile.cpp">
+      <Filter>Source Files\source</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -9,16 +9,27 @@ enum class DM_TileType
     EXPLOSIVE
 };
 
-struct DM_Tile
+class DM_Tile
 {
-    DM_TileType type;
-    int hardness;
-    int reward;
+    // methods:
+public:
 
-    DM_Tile(DM_TileType type, int hardness, int reward)
-        : type(type), hardness(hardness), reward(reward)
+    DM_Tile()
+        : type(DM_TileType::STONE), reward(0)
     {
     }
+
+    DM_Tile(DM_TileType type, int reward)
+        : type(type), reward(reward)
+    {
+    }
+
+    static void WeightedRandTile(DM_Tile* tile);
+
+    // instance variables:
+public:
+    DM_TileType type;
+    int reward;
 };
 
 #endif // DM_TILE_H
