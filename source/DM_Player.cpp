@@ -2,6 +2,11 @@
 
 #include "DM_Player.h"
 
+DM_Player::DM_Player()
+    : DM_Entity(0, 0, 100, 0)
+{
+}
+
 void DM_Player::tick()
 {
 }

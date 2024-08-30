@@ -15,12 +15,7 @@ class DM_Enemy : public DM_Entity
 {
     //methods:
 public:
-    DM_Enemy(int x, int y, int health, int money, Personality personality)
-        : DM_Entity(x, y, health, money)
-        , m_personality(personality)
-        , m_isAttacking(false)
-    {
-    }
+    DM_Enemy(int x, int y, int health, int money, Personality personality);
 
     void tick() override;
 

@@ -8,10 +8,7 @@ class DM_Player : public DM_Entity
 {
     //methods:
 public:
-    DM_Player(int x, int y, int health, int money)
-        : DM_Entity(x, y, health, money)
-    {
-    }
+    DM_Player();
 
     void tick() override;
 

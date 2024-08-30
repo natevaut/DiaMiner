@@ -10,26 +10,15 @@ class DM_Game
 {
     //methods:
 public:
-    DM_Game(DM_Player* player, DM_World* world, DM_Enemy**enemies)
-        : m_pPlayer(player)
-        , m_pWorld(world)
-        , m_pEnemies(enemies)
-    {
-    }
-
-    ~DM_Game()
-    {
-        delete m_pPlayer;
-        delete m_pWorld;
-        delete[] m_pEnemies;
-    }
+    DM_Game();
+    ~DM_Game();
 
     //instance variables:
 
-protected:
-    DM_Player* m_pPlayer;
-    DM_World* m_pWorld;
-    DM_Enemy** m_pEnemies;
+public:
+    DM_Player* pPlayer;
+    DM_World* pWorld;
+    DM_Enemy** pEnemies;
 
 };
 
