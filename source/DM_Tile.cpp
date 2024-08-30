@@ -20,28 +20,28 @@ DM_Tile::DM_Tile(DM_TileType type, int reward)
 {
 }
 
-DM_Tile DM_Tile::WeightedRandTile()
+DM_Tile* DM_Tile::WeightedRandTile()
 {
-	DM_Tile tile;
+	DM_Tile* pTile = new DM_Tile;
 
 	if (GetRandomPercentage() <= DIAM_CHANCE)
 	{
 		// Diamond
-		tile.type = DM_TileType::DIAMOND;
-		tile.reward = GetRandom(1, MAX_DIAM_WORTH);
+		pTile->type = DM_TileType::DIAMOND;
+		pTile->reward = GetRandom(1, MAX_DIAM_WORTH);
 	}
 	else if (GetRandomPercentage() <= BOMB_CHANCE)
 	{
 		// Bomb
-		tile.type = DM_TileType::EXPLOSIVE;
-		tile.reward = 0; // default
+		pTile->type = DM_TileType::EXPLOSIVE;
+		pTile->reward = 0; // default
 	}
 	else
 	{
 		// Stone
-		tile.type = DM_TileType::STONE; // default
-		tile.reward = 0; // default
+		pTile->type = DM_TileType::STONE; // default
+		pTile->reward = 0; // default
 	}
 
-	return tile;
+	return pTile;
 }

@@ -19,7 +19,7 @@ public:
     DM_Tile();
     DM_Tile(DM_TileType type, int reward);
 
-    static DM_Tile WeightedRandTile();
+    static DM_Tile *WeightedRandTile();
 
     // instance variables:
 public:

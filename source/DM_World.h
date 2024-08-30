@@ -27,7 +27,7 @@ public:
     const int depth;
     int wOffset;
     int hOffset;
-    DM_Tile*** tiles;
+    DM_Tile*** *pTiles;
 };
 #define sizeA width
 #define sizeB height

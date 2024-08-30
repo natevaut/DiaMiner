@@ -8,21 +8,21 @@ DM_World::DM_World(int w, int h)
     , wOffset(0), hOffset(0)
 {
     // mem allocate
-    tiles = new DM_Tile**[sizeA];
+    pTiles = new DM_Tile***[sizeA];
     for (int i = 0; i < sizeA; ++i)
     {
-        tiles[i] = new DM_Tile*[sizeB];
+        pTiles[i] = new DM_Tile**[sizeB];
 
         for (int j = 0; j < sizeB; ++j)
         {
-            tiles[i][j] = new DM_Tile[sizeC];
+            pTiles[i][j] = new DM_Tile*[sizeC];
 
             for (int k = 0; k < sizeC; k++)
             {
-                DM_Tile tile = DM_Tile::WeightedRandTile();
+                DM_Tile *pTile = DM_Tile::WeightedRandTile();
                 if (k == TILE_DEPTH - 1) // top layer
-                    tile = DM_Tile(); // clear tile (make it stone)
-                tiles[i][j][k] = tile;
+                    pTile = new DM_Tile; // clear (make stone)
+                pTiles[i][j][k] = pTile;
             }
         }
     }
@@ -30,16 +30,18 @@ DM_World::DM_World(int w, int h)
 
 DM_World::~DM_World()
 {
-    // free all mem alloc
+    // free all mem allocs
     for (int i = 0; i < sizeA; ++i)
     {
         for (int j = 0; j < sizeB; ++j)
         {
-            delete tiles[i][j];
+            for (int k = 0; k < sizeC; ++k)
+                delete pTiles[i][j][k];
+            delete[] pTiles[i][j];
         }
-        delete[] tiles[i];
+        delete[] pTiles[i];
     }
-    delete[] tiles;
+    delete[] pTiles;
 }
 
 void DM_World::move(int dx, int dy)

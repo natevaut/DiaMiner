@@ -96,13 +96,15 @@ void SceneMain::ProcessInput(const Uint8* state) {
 
 void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 	DM_World* pWorld = m_pGame->pWorld;
-	DM_Tile*** tiles = pWorld->tiles;
+	DM_Tile*** *pTiles = pWorld->pTiles;
 	bool loop = true;
 	for (int i = 0; loop && i < pWorld->sizeA; i++)
 		for (int j = 0; loop && j < pWorld->sizeB; j++)
 			for (int k = 0; loop && k < pWorld->sizeC; k++)
 			{
-				DM_Tile tile = tiles[i][j][k];
+				DM_Tile *pTile = pTiles[i][j][k];
+				if (pTile == NULL)
+					continue;
 
 				if (m_spriteN >= NSPRITES)
 				{
@@ -112,7 +114,7 @@ void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 				}
 
 				const char* filename;
-				switch (tile.type)
+				switch (pTile->type)
 				{
 				case DM_TileType::STONE:
 					filename = SPRITE_PATH "tile_stone.png";
