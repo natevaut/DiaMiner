@@ -58,8 +58,8 @@ bool SceneMain::Initialise(Renderer& renderer)
 void SceneMain::Process(float deltaTime)
 {
 	// set player data
-	m_pSprites[0]->SetX(m_pGame->pPlayer->xTile * SCALE);
-	m_pSprites[0]->SetY(m_pGame->pPlayer->yTile * SCALE);
+	m_pSprites[0]->SetX(WORLD_START_X + m_pGame->pPlayer->xTile * SCALE);
+	m_pSprites[0]->SetY(WORLD_START_Y + m_pGame->pPlayer->yTile * SCALE);
 
 	// process all
 	for (int i = 0; i < NSPRITES; i++)
@@ -73,13 +73,25 @@ void SceneMain::Process(float deltaTime)
 
 void SceneMain::Draw(Renderer &renderer)
 {
+	// draw animated sprites (tiles)
+	for (int i = 0; i < NSPRITES; i++)
+	{
+		if (m_pAnimSprites[i] != 0)
+			m_pAnimSprites[i]->Draw(renderer);
+	}
+	// then draw regular sprites (i.e. player and HUD) over animated ones (tiles)
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		if (m_pSprites[i] != 0)
 			m_pSprites[i]->Draw(renderer);
-		if (m_pAnimSprites[i] != 0)
-			m_pAnimSprites[i]->Draw(renderer);
 	}
+}
+
+void SceneMain::ProcessInput(const Uint8* state) {
+	if (state[SDL_SCANCODE_W]) m_pGame->pPlayer->move(0, -1); // Move up
+	if (state[SDL_SCANCODE_A]) m_pGame->pPlayer->move(-1, 0); // Move left
+	if (state[SDL_SCANCODE_S]) m_pGame->pPlayer->move(0, +1); // Move down
+	if (state[SDL_SCANCODE_D]) m_pGame->pPlayer->move(+1, 0); // Move right
 }
 
 void SceneMain::createWorldTileSprites(Renderer* pRenderer) {

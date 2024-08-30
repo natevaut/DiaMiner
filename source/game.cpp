@@ -89,12 +89,17 @@ bool Game::DoGameLoop()
 {
 	const float stepSize = 1.0f / 60.0f;
 
-	// TODO: Process input here!
+	// Process input
 	SDL_Event event;
 	while (SDL_PollEvent(&event) != 0)
 	{
-		continue;
+		if (event.type == SDL_QUIT)
+		{
+			m_bLooping = false;
+		}
 	}
+	const Uint8* state = SDL_GetKeyboardState(NULL);
+	m_pScenes[SCENEID_MAIN]->ProcessInput(state);
 
 	if (m_bLooping)
 	{

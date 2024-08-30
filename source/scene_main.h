@@ -2,14 +2,17 @@
 
 #ifndef SCENEMAIN_H
 #define SCENEMAIN_H
-// Local includes:
+
+#include <SDL.h>
+
 #include "scene.h"
+
 // Forward declarations:
 class Renderer;
 class Sprite;
 class AnimatedSprite;
 class DM_Game;
-// Class declaration:
+
 class SceneMain : public Scene
 {
 	// Member methods:
@@ -19,6 +22,7 @@ public:
 	virtual bool Initialise(Renderer &renderer);
 	virtual void Process(float deltaTime);
 	virtual void Draw(Renderer &renderer);
+	virtual void ProcessInput(const Uint8*state);
 
 protected:
 private:
@@ -29,9 +33,9 @@ private:
 
 	// Member data:
 public:
+	DM_Game* m_pGame;
 protected:
 	Sprite **m_pSprites;
-	DM_Game* m_pGame;
 	AnimatedSprite** m_pAnimSprites;
 private:
 	int m_spriteN;

@@ -2,6 +2,10 @@
 
 #include "DM_Player.h"
 
+#include <SDL.h>
+
+#include "logmanager.h"
+
 DM_Player::DM_Player()
     : DM_Entity(0, 0, 100, 0)
 {
@@ -9,6 +13,7 @@ DM_Player::DM_Player()
 
 void DM_Player::tick()
 {
+
 }
 
 void DM_Player::diamond(int worth)
@@ -25,6 +30,8 @@ void DM_Player::move(int dx, int dy)
 {
     xTile += dx;
     yTile += dy;
+
+    LogManager::GetInstance().Log("Player movement");
 }
 
 void DM_Player::mineBelow()

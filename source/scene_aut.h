@@ -2,6 +2,8 @@
 
 #ifndef  SCENEAUT_H
 #define  SCENEAUT_H 
+
+#include <SDL.h>
 // Local includes:
 #include "scene.h"
 // Forward declarations:
@@ -17,6 +19,7 @@ public:
 	virtual bool Initialise(Renderer& renderer);
 	virtual void Process(float deltaTime);
 	virtual void Draw(Renderer& renderer);
+	virtual void ProcessInput(const Uint8* state);
 protected:
 private:
 	SceneAUT(const SceneAUT& splashscene);

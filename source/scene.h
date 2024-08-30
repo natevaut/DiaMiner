@@ -3,6 +3,8 @@
 #ifndef SCENE_H
 #define SCENE_H
 
+#include <SDL.h>
+
 // Forward declarations:
 class Renderer;
 
@@ -17,6 +19,7 @@ public:
 	virtual bool Initialise(Renderer &renderer) = 0;
 	virtual void Process(float deltaTime) = 0;
 	virtual void Draw(Renderer &renderer) = 0;
+	virtual void ProcessInput(const Uint8* state) = 0;
 
 	int GetBackground() {
 		return m_background;
