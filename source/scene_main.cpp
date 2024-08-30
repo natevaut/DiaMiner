@@ -17,7 +17,7 @@
 #define NSPRITES 10
 
 const int SCALE = 5;
-const int WORLD_START_X = 100;
+const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
 
 SceneMain::SceneMain(int width, int height)
