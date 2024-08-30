@@ -237,6 +237,13 @@ Renderer::CreateAnimatedSprite(const char *pcFilename)
 	{
 		LogManager::GetInstance().Log("AnimatedSprite failed to create!");
 	}
+
+	// Consistent Setup
+	pSprite->SetupFrames(16, 16); // 16x16xN spritesheet
+	pSprite->Animate();
+	pSprite->SetLooping(true);
+	pSprite->SetFrameDuration(0.2f);
+
 	return pSprite;
 }
 void Renderer::DrawAnimatedSprite(AnimatedSprite &sprite, int frame)

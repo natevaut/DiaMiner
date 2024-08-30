@@ -15,12 +15,16 @@
 #include "DM_Tile.h"
 
 const int NSPRITES = 500;
+const int SCALE = 5;
+const int WORLD_START_X = 100;
+const int WORLD_START_Y = 300;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
 	, m_pSprites(NULL)
 	, m_pAnimSprites(NULL)
 	, m_pGame(NULL)
+	, m_spriteN(0)
 {
 }
 SceneMain::~SceneMain()
@@ -41,14 +45,23 @@ bool SceneMain::Initialise(Renderer& renderer)
 	}
 
 	m_pGame = new DM_Game;
+	m_pGame->pPlayer->tick();
 
 	createWorldTileSprites(pRenderer);
+
+	Sprite *player = pRenderer->CreateSprite(SPRITE_PATH "player.png");
+	m_pSprites[0] = player;
 
 	return true;
 }
 
 void SceneMain::Process(float deltaTime)
 {
+	// set player data
+	m_pSprites[0]->SetX(m_pGame->pPlayer->xTile * SCALE);
+	m_pSprites[0]->SetY(m_pGame->pPlayer->yTile * SCALE);
+
+	// process all
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		if (m_pSprites[i] != 0)
@@ -69,13 +82,9 @@ void SceneMain::Draw(Renderer &renderer)
 	}
 }
 
-const int SCALE = 5;
-const int WORLD_START_X = 100;
-const int WORLD_START_Y = 300;
 void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 	DM_World* pWorld = m_pGame->pWorld;
 	DM_Tile*** tiles = pWorld->tiles;
-	int n = 0;
 	bool loop = true;
 	for (int i = 0; loop && i < pWorld->sizeA; i++)
 		for (int j = 0; loop && j < pWorld->sizeB; j++)
@@ -83,7 +92,7 @@ void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 			{
 				DM_Tile tile = tiles[i][j][k];
 
-				if (n >= NSPRITES)
+				if (m_spriteN >= NSPRITES)
 				{
 					LogManager::GetInstance().Log("WARNING: Memory too small to load all sprites!");
 					loop = false;
@@ -109,15 +118,10 @@ void SceneMain::createWorldTileSprites(Renderer* pRenderer) {
 				LogManager::GetInstance().Log(filename);
 
 				// create animated sprite
-				m_pAnimSprites[n] = pRenderer->CreateAnimatedSprite(filename);
-				m_pAnimSprites[n]->SetupFrames(16, 16); // 16x16xN spritesheet
-				m_pAnimSprites[n]->Animate();
-				m_pAnimSprites[n]->SetLooping(true);
-				m_pAnimSprites[n]->SetFrameDuration(0.2f);
-				m_pAnimSprites[n]->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
-				m_pAnimSprites[n]->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
-				m_pAnimSprites[n]->SetScale(SCALE);
-
-				n++;
+				AnimatedSprite* sprite = pRenderer->CreateAnimatedSprite(filename);
+				sprite->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
+				sprite->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
+				sprite->SetScale(SCALE);
+				m_pAnimSprites[m_spriteN++] = sprite;
 			}
 }

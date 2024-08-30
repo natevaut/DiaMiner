@@ -29,11 +29,12 @@ private:
 
 	// Member data:
 public:
-private:
 protected:
 	Sprite **m_pSprites;
 	DM_Game* m_pGame;
 	AnimatedSprite** m_pAnimSprites;
+private:
+	int m_spriteN;
 };
 
 #endif //   SCENEMAIN_H

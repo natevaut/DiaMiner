@@ -13,18 +13,18 @@ void DM_Player::tick()
 
 void DM_Player::diamond(int worth)
 {
-    m_money += worth;
+    money += worth;
 }
 
 void DM_Player::damage(int value)
 {
-    m_health -= value;
+    health -= value;
 }
 
 void DM_Player::move(int dx, int dy)
 {
-    m_xTile += dx;
-    m_yTile += dy;
+    xTile += dx;
+    yTile += dy;
 }
 
 void DM_Player::mineBelow()

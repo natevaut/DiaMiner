@@ -15,12 +15,10 @@ public:
 
     // instance variables
 public:
-    byte m_health;
-    int m_money;
-
-protected:
-    int m_xTile;
-    int m_yTile;
+    byte health;
+    int money;
+    int xTile;
+    int yTile;
 };
 
 #endif // DM_ENTITY_H
