@@ -29,7 +29,7 @@ private:
 	SceneMain(const SceneMain&scene);
 	SceneMain&operator=(const SceneMain&scene);
 
-	void createWorldTileSprites(Renderer* pRenderer);
+	void createWorldTileSprites();
 
 	// Member data:
 public:
@@ -39,6 +39,7 @@ protected:
 	AnimatedSprite** m_pAnimSprites;
 private:
 	Renderer* m_pRenderer;
+	AnimatedSprite**** m_pTileSprites;
 };
 
 #endif //   SCENEMAIN_H

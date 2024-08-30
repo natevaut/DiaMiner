@@ -30,5 +30,5 @@ void DM_Player::move(float dx, float dy)
 
 void DM_Player::mineBelow(DM_World *pWorld)
 {
-    pWorld->mineBelow((int)xTile, (int)yTile);
+    pWorld->mineBelow((int) (xTile + 0.5), (int) (yTile + 0.5));
 }
