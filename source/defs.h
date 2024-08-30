@@ -6,4 +6,6 @@
 #define SPRITE_PATH "sprite/"
 #define SHADER_PATH "shader/"
 
+typedef unsigned char byte;
+
 #endif // DEFS_H

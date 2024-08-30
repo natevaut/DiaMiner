@@ -2,18 +2,17 @@
 #include "DM_World.h"
 
 DM_World::DM_World(int w, int h)
-    : width(w), height(h)
-    , wOffset(0), hOffset(0)
+    : m_width(w), m_height(h)
+    , m_wOffset(0), m_hOffset(0)
 {
     // mem allocate
-    tiles = new DM_Tile**[width];
-    for (int i = 0; i < width; ++i)
+    m_pTiles = new DM_Tile***[m_width];
+    for (int i = 0; i < m_width; ++i)
     {
-        tiles[i] = new DM_Tile*[height];
-        for (int j = 0; j < height; ++j)
+        m_pTiles[i] = new DM_Tile**[m_height];
+        for (int j = 0; j < m_height; ++j)
         {
-            // init
-            tiles[i][j] = 0; // new DM_Tile...
+            m_pTiles[i][j] = new DM_Tile*[TILE_DEPTH];
         }
     }
 }
@@ -21,21 +20,21 @@ DM_World::DM_World(int w, int h)
 DM_World::~DM_World()
 {
     // free all mem alloc
-    for (int i = 0; i < width; ++i)
+    for (int i = 0; i < m_width; ++i)
     {
-        for (int j = 0; j < height; ++j)
+        for (int j = 0; j < m_height; ++j)
         {
-            delete tiles[i][j];
+            delete m_pTiles[i][j];
         }
-        delete[] tiles[i];
+        delete[] m_pTiles[i];
     }
-    delete[] tiles;
+    delete[] m_pTiles;
 }
 
 void DM_World::move(int dx, int dy)
 {
-    wOffset += dx;
-    hOffset += dy;
+    m_wOffset += dx;
+    m_hOffset += dy;
 }
 
 void DM_World::mineBelow()

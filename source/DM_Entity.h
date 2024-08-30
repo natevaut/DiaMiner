@@ -2,12 +2,17 @@
 #ifndef DM_ENTITY_H
 #define DM_ENTITY_H
 
+#include "defs.h"
+
 class DM_Entity
 {
     //methods
 public:
     DM_Entity(int x, int y, int health, int money)
-        : xTile(x), yTile(y), health(health), money(money)
+        : m_xTile(x)
+        , m_yTile(y)
+        , m_health(health)
+        , m_money(money)
     {
     }
 
@@ -19,12 +24,12 @@ public:
 
     // instance variables
 public:
-    int health;
-    int money;
+    byte m_health;
+    int m_money;
 
 protected:
-    int xTile;
-    int yTile;
+    int m_xTile;
+    int m_yTile;
 };
 
 #endif // DM_ENTITY_H

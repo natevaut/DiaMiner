@@ -17,8 +17,8 @@ class DM_Enemy : public DM_Entity
 public:
     DM_Enemy(int x, int y, int health, int money, Personality personality)
         : DM_Entity(x, y, health, money)
-        , personality(personality)
-        , isAttacking(false)
+        , m_personality(personality)
+        , m_isAttacking(false)
     {
     }
 
@@ -31,8 +31,8 @@ private:
 
     //instance variables:
 public:
-    Personality personality;
-    bool isAttacking;
+    Personality m_personality;
+    bool m_isAttacking;
 };
 
 #endif // DM_ENEMY_H
