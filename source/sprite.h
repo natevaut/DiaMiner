@@ -32,14 +32,14 @@ public:
 	void SetScale(float scale);
 	float GetScale() const;
 
-	void SetAlpha(float alpha);
+	void SetAlpha(int alpha);
 	float GetAlpha() const;
 
-	void SetRedTint(float value);
+	void SetRedTint(int value);
 	float GetRedTint() const;
-	void SetGreenTint(float value);
+	void SetGreenTint(int value);
 	float GetGreenTint() const;
-	void SetBlueTint(float value);
+	void SetBlueTint(int value);
 	float GetBlueTint() const;
 
 protected:
