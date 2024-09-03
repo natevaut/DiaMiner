@@ -5,6 +5,7 @@ DM_Game::DM_Game()
     : pWorld(new DM_World(15, 10, 5)) // 15x10x5 tile world
     , pPlayer(new DM_Player())
     , pEnemies(new DM_Enemy*[10])
+    , outcome(Outcome::IN_PLAY)
 {
 }
 

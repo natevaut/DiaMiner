@@ -6,6 +6,13 @@
 #include "DM_World.h"
 #include "DM_Enemy.h"
 
+enum Outcome
+{
+    IN_PLAY,
+    PLAYER_WINS,
+    PLAYER_LOSES
+};
+
 class DM_Game
 {
     //methods:
@@ -19,6 +26,7 @@ public:
     DM_Player* pPlayer;
     DM_World* pWorld;
     DM_Enemy** pEnemies;
+    enum Outcome outcome;
 
 };
 

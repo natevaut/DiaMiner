@@ -23,6 +23,8 @@
 #define SPRITEN_HEALTHBALL 2
 #define SPRITEN_MONEYTEXT 3
 #define SPRITEN_MONEYBALL 4
+#define SPRITEN_WINMSG 5
+#define SPRITEN_LOSEMSG 6
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
@@ -78,13 +80,23 @@ bool SceneMain::Initialise(Renderer& renderer)
 	pMoneyLabel->SetScale(-1);
 	m_pSprites[SPRITEN_MONEYTEXT] = pMoneyLabel;
 	Sprite* pMoney = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
-	pMoney->SetX(1200);
+	pMoney->SetX(1150);
 	pMoney->SetY(200);
 	pMoney->SetScale(0.0f);
 	pMoney->SetRedTint(0.3f);
 	pMoney->SetBlueTint(1.0f);
 	pMoney->SetGreenTint(0.5f);
 	m_pSprites[SPRITEN_MONEYBALL] = pMoney;
+	Sprite* pWinMsg = m_pRenderer->CreateSprite(SPRITE_PATH "outcome_Win.png");
+	pWinMsg->SetX(800);
+	pWinMsg->SetY(1200);
+	pWinMsg->SetScale(0.0f);
+	m_pSprites[SPRITEN_WINMSG] = pWinMsg;
+	Sprite* pLoseMsg = m_pRenderer->CreateSprite(SPRITE_PATH "outcome_Loss.png");
+	pLoseMsg->SetX(800);
+	pLoseMsg->SetY(1200);
+	pLoseMsg->SetScale(0.0f);
+	m_pSprites[SPRITEN_LOSEMSG] = pLoseMsg;
 
 	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
 	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
@@ -104,6 +116,27 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 void SceneMain::Process(float deltaTime seconds)
 {
+	// Process all sprites
+	for (int i = 0; i < NSPRITES; i++)
+	{
+		if (m_pSprites[i] != 0)
+			m_pSprites[i]->Process(deltaTime);
+		if (m_pAnimSprites[i] != 0)
+			m_pAnimSprites[i]->Process(deltaTime);
+	}
+
+	// Win/lose
+	if (m_pGame->outcome == Outcome::PLAYER_WINS)
+	{
+		m_pSprites[SPRITEN_WINMSG]->SetScale(-2.0f);
+		return;
+	}
+	else if (m_pGame->outcome == Outcome::PLAYER_LOSES)
+	{
+		m_pSprites[SPRITEN_LOSEMSG]->SetScale(-2.0f);
+		return;
+	}
+
 	// Cooldown times
 	for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
 		m_pfStateCooldowns[i] += deltaTime seconds;
@@ -111,6 +144,11 @@ void SceneMain::Process(float deltaTime seconds)
 
 	// Player Tick
 	DM_Player* pPlayer = m_pGame->pPlayer;
+	// win/lose conditions
+	if (pPlayer->money > 1000)
+		m_pGame->outcome = Outcome::PLAYER_WINS;
+	if (pPlayer->health <= 0)
+		m_pGame->outcome = Outcome::PLAYER_LOSES;
 	// player health
 	float health = pPlayer->health / 100.0f;
 	Sprite* pHealth = m_pSprites[SPRITEN_HEALTHBALL];
@@ -119,7 +157,7 @@ void SceneMain::Process(float deltaTime seconds)
 	pHealth->SetBlueTint(0.2f);
 	// player cash
 	Sprite* pCash = m_pSprites[SPRITEN_MONEYBALL];
-	pCash->SetScale(pPlayer->money / 5000.0f);
+	pCash->SetScale(pPlayer->money / 4000.0f);
 	// player action results
 	m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
 	m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(0);
@@ -151,15 +189,6 @@ void SceneMain::Process(float deltaTime seconds)
 	// update pos
 	m_pSprites[0]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
 	m_pSprites[0]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
-	
-	// Process all sprites
-	for (int i = 0; i < NSPRITES; i++)
-	{
-		if (m_pSprites[i] != 0)
-			m_pSprites[i]->Process(deltaTime);
-		if (m_pAnimSprites[i] != 0)
-			m_pAnimSprites[i]->Process(deltaTime);
-	}
 }
 
 void SceneMain::Draw(Renderer &renderer)
