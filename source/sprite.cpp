@@ -83,9 +83,9 @@ float Sprite::GetScale() const
 	return m_scale;
 }
 
-void Sprite::SetAlpha(int alpha)
+void Sprite::SetAlpha(float alpha)
 {
-	m_alpha = Clamp(0.0f, alpha / 255.0f, 1.0f);
+	m_alpha = Clamp(0.0f, alpha, 1.0f);
 }
 
 float Sprite::GetAlpha() const
@@ -117,9 +117,9 @@ float Sprite::Clamp(float minimum, float value, float maximum)
 	return value;
 }
 
-void Sprite::SetRedTint(int value)
+void Sprite::SetRedTint(float value)
 {
-	m_tintRed = Clamp(0.0f, value / 255.0f, 1.0f);
+	m_tintRed = Clamp(0.0f, value, 1.0f);
 }
 
 float Sprite::GetRedTint() const
@@ -127,9 +127,9 @@ float Sprite::GetRedTint() const
 	return m_tintRed;
 }
 
-void Sprite::SetGreenTint(int value)
+void Sprite::SetGreenTint(float value)
 {
-	m_tintGreen = Clamp(0.0f, value / 255.0f, 1.0f);
+	m_tintGreen = Clamp(0.0f, value, 1.0f);
 }
 
 float Sprite::GetGreenTint() const
@@ -137,9 +137,9 @@ float Sprite::GetGreenTint() const
 	return m_tintGreen;
 }
 
-void Sprite::SetBlueTint(int value)
+void Sprite::SetBlueTint(float value)
 {
-	m_tintBlue = Clamp(0.0f, value / 255.0f, 1.0f);
+	m_tintBlue = Clamp(0.0f, value, 1.0f);
 }
 
 float Sprite::GetBlueTint() const
