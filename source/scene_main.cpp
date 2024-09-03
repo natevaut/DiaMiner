@@ -20,8 +20,9 @@
 // static sprites:
 #define SPRITEN_PLAYER 0
 #define SPRITEN_HEALTHTEXT 1
-#define SPRITEN_HEALTHBALL 2
-#define SPRITEN_MONEYTEXT 3
+#define SPRITEN_HEALTHBALLBG 2
+#define SPRITEN_HEALTHBALL 3
+#define SPRITEN_MONEYTEXT 4
 #define SPRITEN_MONEYBALLBG 5
 #define SPRITEN_MONEYBALL 6
 #define SPRITEN_WINMSG 10
@@ -73,8 +74,16 @@ bool SceneMain::Initialise(Renderer& renderer)
 	Sprite* pHealth = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
 	pHealth->SetX(600);
 	pHealth->SetY(200);
+	pHealth->SetRedTint(1);
+	pHealth->SetGreenTint(0.2f);
+	pHealth->SetBlueTint(0.2f);
 	pHealth->SetScale(0.25f);
 	m_pSprites[SPRITEN_HEALTHBALL] = pHealth;
+	Sprite* pHealthBG = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
+	pHealthBG->SetX(600);
+	pHealthBG->SetY(200);
+	pHealthBG->SetScale(0.25f);
+	m_pSprites[SPRITEN_HEALTHBALLBG] = pHealthBG;
 	Sprite* pMoneyLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Cash.png");
 	pMoneyLabel->SetX(1000);
 	pMoneyLabel->SetY(200);
@@ -158,9 +167,7 @@ void SceneMain::Process(float deltaTime seconds)
 	// player health
 	float health = pPlayer->health / 100.0f;
 	Sprite* pHealth = m_pSprites[SPRITEN_HEALTHBALL];
-	pHealth->SetRedTint(0.2f + health * 0.8f);
-	pHealth->SetGreenTint(0.2f);
-	pHealth->SetBlueTint(0.2f);
+	pHealth->SetScale(0.25f * pPlayer->health / 100.0f);
 	// player cash
 	Sprite* pCash = m_pSprites[SPRITEN_MONEYBALL];
 	pCash->SetScale(0.25f * pPlayer->money / 1000.0f);
