@@ -117,6 +117,13 @@ float Sprite::Clamp(float minimum, float value, float maximum)
 	return value;
 }
 
+void Sprite::SetTint(float value)
+{
+	SetRedTint(value);
+	SetGreenTint(value);
+	SetBlueTint(value);
+}
+
 void Sprite::SetRedTint(float value)
 {
 	m_tintRed = Clamp(0.0f, value, 1.0f);

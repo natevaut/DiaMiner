@@ -108,8 +108,10 @@ void SceneMain::Draw(Renderer &renderer)
 		for (int j = 0; j < pWorld->sizeB; ++j)
 			for (int k = 0; k < pWorld->sizeC; ++k)
 			{
-				if (pWorld->pTiles[i][j][k] != NULL)
-					m_pTileSprites[i][j][k]->Draw(renderer);
+				if (pWorld->pTiles[i][j][k] == NULL) continue;
+
+				AnimatedSprite* pSprite = m_pTileSprites[i][j][k];
+				pSprite->Draw(renderer);
 			}
 	// then draw regular sprites (i.e. player and HUD) over animated ones (tiles)
 	for (int i = 0; i < NSPRITES; i++)
@@ -185,6 +187,9 @@ void SceneMain::createWorldTileSprites() {
 				sprite->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
 				sprite->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
 				sprite->SetScale(SCALE);
+				//sprite->SetScale(SCALE * (1 - k / 90.0f)); // makes ouline
+				sprite->SetAlpha(0.98f);
+				sprite->SetTint(1 - (pWorld->sizeC-k)/10.0f);
 				m_pTileSprites[i][j][k] = sprite;
 				n++;
 			}

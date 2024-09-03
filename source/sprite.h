@@ -35,6 +35,7 @@ public:
 	void SetAlpha(float alpha);
 	float GetAlpha() const;
 
+	void SetTint(float value);
 	void SetRedTint(float value);
 	float GetRedTint() const;
 	void SetGreenTint(float value);
