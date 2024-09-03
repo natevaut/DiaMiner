@@ -6,6 +6,12 @@
 
 class DM_World;
 
+enum DamageCause {
+    NONE,
+    BOMB,
+    ENEMY
+};
+
 class DM_Player : public DM_Entity
 {
     //methods:
@@ -13,16 +19,17 @@ public:
     DM_Player();
 
     void tick() override;
-
-    void diamond(int worth);
-
-    void damage(int value);
-
     void move(float dx, float dy);
-
     void mineBelow(DM_World* pWorld);
 
+protected:
+    void diamond(int worth);
+    void explosion(int value);
+    void attacked(int value);
+
     // instance variables:
+public:
+    enum DamageCause damageCause;
 protected:
 
 };

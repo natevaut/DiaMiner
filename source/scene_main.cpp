@@ -16,10 +16,13 @@
 
 #define seconds
 
-#define PLAYER_SPRITEN 0
-#define HEALTHLABEL_SPRITEN 1
-#define HEALTHBALL_SPRITEN 2
 #define NSPRITES 10
+// static sprites:
+#define SPRITEN_PLAYER 0
+#define SPRITEN_HEALTHTEXT 1
+#define SPRITEN_HEALTHBALL 2
+// animated sprites:
+#define SPRITEN_EXPLOSION 0
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
@@ -55,17 +58,20 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 	// Scene sprites:
 	Sprite* player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-	m_pSprites[PLAYER_SPRITEN] = player;
+	m_pSprites[SPRITEN_PLAYER] = player;
 	Sprite* pHealthLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Health.png");
 	pHealthLabel->SetX(400);
 	pHealthLabel->SetY(200);
 	pHealthLabel->SetScale(-1);
-	m_pSprites[HEALTHLABEL_SPRITEN] = pHealthLabel;
+	m_pSprites[SPRITEN_HEALTHTEXT] = pHealthLabel;
 	Sprite* pHealth = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
 	pHealth->SetX(600);
 	pHealth->SetY(200);
 	pHealth->SetScale(0.25f);
-	m_pSprites[HEALTHBALL_SPRITEN] = pHealth;
+	m_pSprites[SPRITEN_HEALTHBALL] = pHealth;
+
+	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
+	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
 
 	createWorldTileSprites();
 
@@ -89,10 +95,22 @@ void SceneMain::Process(float deltaTime seconds)
 	DM_Player* pPlayer = m_pGame->pPlayer;
 	// player health
 	float health = pPlayer->health / 100.0f;
-	Sprite* pHealth = m_pSprites[HEALTHBALL_SPRITEN];
+	Sprite* pHealth = m_pSprites[SPRITEN_HEALTHBALL];
 	pHealth->SetRedTint(0.2f + health * 0.8f);
 	pHealth->SetGreenTint(0.2f);
 	pHealth->SetBlueTint(0.2f);
+	// player damage
+	switch (pPlayer->damageCause)
+	{
+	case DamageCause::BOMB:
+		LogManager::GetInstance().Log("Showing explosion!");
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(SCALE);
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+		break;
+	default:
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
+	}
 	// ensure bounds
 	int width = m_pGame->pWorld->width;
 	int height = m_pGame->pWorld->height;
@@ -137,6 +155,8 @@ void SceneMain::Draw(Renderer &renderer)
 	{
 		if (m_pSprites[i] != 0)
 			m_pSprites[i]->Draw(renderer);
+		if (m_pAnimSprites[i] != 0)
+			m_pAnimSprites[i]->Draw(renderer);
 	}
 }
 

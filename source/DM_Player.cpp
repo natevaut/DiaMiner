@@ -10,6 +10,7 @@ const int BOMB_DAMAGE = 10;
 
 DM_Player::DM_Player()
     : DM_Entity(0, 0, 100, 0)
+    , damageCause(DamageCause::NONE)
 {
 }
 
@@ -22,15 +23,26 @@ void DM_Player::diamond(int worth)
     money += worth;
 }
 
-void DM_Player::damage(int value)
+void DM_Player::explosion(int value)
 {
     health -= value;
+
+    damageCause = DamageCause::BOMB;
+}
+
+void DM_Player::attacked(int value)
+{
+    health -= value;
+
+    damageCause = DamageCause::ENEMY;
 }
 
 void DM_Player::move(float dx, float dy)
 {
     xTile += dx;
     yTile += dy;
+
+    damageCause = DamageCause::NONE;
 }
 
 void DM_Player::mineBelow(DM_World *pWorld)
@@ -42,7 +54,7 @@ void DM_Player::mineBelow(DM_World *pWorld)
         LogManager::GetInstance().Log("Diamond mined!");
         break;
     case DM_TileType::EXPLOSIVE:
-        damage(BOMB_DAMAGE);
+        explosion(BOMB_DAMAGE);
         LogManager::GetInstance().Log("Explosive hit!");
         break;
     default:

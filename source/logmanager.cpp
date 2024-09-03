@@ -26,10 +26,15 @@ LogManager::~LogManager()
 }
 void LogManager::Log(const char *pcMessage)
 {
+#ifdef _DEBUG
 	OutputDebugStringA(pcMessage);
 	OutputDebugStringA("\n");
+#endif
 }
+
 void LogManager::LogPart(const char *pcMessage)
 {
+#ifdef _DEBUG
 	OutputDebugStringA(pcMessage);
+#endif
 }
