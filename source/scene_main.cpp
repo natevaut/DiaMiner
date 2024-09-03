@@ -16,15 +16,16 @@
 
 #define seconds
 
-#define NSPRITES 10
+#define NSPRITES 20
 // static sprites:
 #define SPRITEN_PLAYER 0
 #define SPRITEN_HEALTHTEXT 1
 #define SPRITEN_HEALTHBALL 2
 #define SPRITEN_MONEYTEXT 3
-#define SPRITEN_MONEYBALL 4
-#define SPRITEN_WINMSG 5
-#define SPRITEN_LOSEMSG 6
+#define SPRITEN_MONEYBALLBG 5
+#define SPRITEN_MONEYBALL 6
+#define SPRITEN_WINMSG 10
+#define SPRITEN_LOSEMSG 11
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
@@ -87,6 +88,11 @@ bool SceneMain::Initialise(Renderer& renderer)
 	pMoney->SetBlueTint(1.0f);
 	pMoney->SetGreenTint(0.5f);
 	m_pSprites[SPRITEN_MONEYBALL] = pMoney;
+	Sprite* pMoneyBG = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
+	pMoneyBG->SetX(1150);
+	pMoneyBG->SetY(200);
+	pMoneyBG->SetScale(0.25f);
+	m_pSprites[SPRITEN_MONEYBALLBG] = pMoneyBG;
 	Sprite* pWinMsg = m_pRenderer->CreateSprite(SPRITE_PATH "outcome_Win.png");
 	pWinMsg->SetX(800);
 	pWinMsg->SetY(1200);
@@ -157,7 +163,7 @@ void SceneMain::Process(float deltaTime seconds)
 	pHealth->SetBlueTint(0.2f);
 	// player cash
 	Sprite* pCash = m_pSprites[SPRITEN_MONEYBALL];
-	pCash->SetScale(pPlayer->money / 4000.0f);
+	pCash->SetScale(0.25f * pPlayer->money / 1000.0f);
 	// player action results
 	m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
 	m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(0);
