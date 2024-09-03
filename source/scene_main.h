@@ -38,6 +38,7 @@ protected:
 	Sprite **m_pSprites;
 	AnimatedSprite** m_pAnimSprites;
 private:
+	float* m_pfStateCooldowns;
 	Renderer* m_pRenderer;
 	AnimatedSprite**** m_pTileSprites;
 };

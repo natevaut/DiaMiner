@@ -15,6 +15,7 @@
 #include "DM_Tile.h"
 
 #define NSPRITES 10
+#define seconds
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
@@ -24,7 +25,10 @@ SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
 	, m_pSprites(NULL)
 	, m_pAnimSprites(NULL)
+	, m_pTileSprites(NULL)
+	, m_pRenderer(NULL)
 	, m_pGame(NULL)
+	, m_pfStateCooldowns(NULL)
 {
 }
 SceneMain::~SceneMain()
@@ -46,6 +50,12 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 	m_pGame = new DM_Game;
 
+	// Cooldown times
+	m_pfStateCooldowns = new float[SDL_NUM_SCANCODES];
+	for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
+		m_pfStateCooldowns[i] = 0 seconds;
+	}
+
 	createWorldTileSprites();
 
 	Sprite *player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
@@ -54,8 +64,13 @@ bool SceneMain::Initialise(Renderer& renderer)
 	return true;
 }
 
-void SceneMain::Process(float deltaTime)
+void SceneMain::Process(float deltaTime seconds)
 {
+	// Cooldown times
+	for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
+		m_pfStateCooldowns[i] += deltaTime seconds;
+	}
+
 	// Player Tick
 	DM_Player* pPlayer = m_pGame->pPlayer;
 
@@ -111,7 +126,15 @@ void SceneMain::ProcessInput(const Uint8* state) {
 	if (state[SDL_SCANCODE_A]) pPlayer->move(-0.1f, 0); // Move left
 	if (state[SDL_SCANCODE_S]) pPlayer->move(0, +0.1f); // Move down
 	if (state[SDL_SCANCODE_D]) pPlayer->move(+0.1f, 0); // Move right
-	if (state[SDL_SCANCODE_X]) pPlayer->mineBelow(pWorld); // Mine down
+	if (state[SDL_SCANCODE_X]) // Mine down
+	{
+		if (m_pfStateCooldowns[SDL_SCANCODE_X] > 1.0f seconds)
+		{
+			pPlayer->mineBelow(pWorld);
+			m_pfStateCooldowns[SDL_SCANCODE_X] = 0 seconds;
+		}
+		
+	}
 }
 
 void SceneMain::createWorldTileSprites() {
