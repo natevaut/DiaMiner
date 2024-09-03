@@ -272,13 +272,18 @@ void SceneMain::createWorldTileSprites() {
 					break;
 
 				const char* filename;
+				float tintR = 1;
+				float tintG = 1;
+				float tintB = 1;
 				switch (pTile->type)
 				{
 				case DM_TileType::STONE:
 					filename = SPRITE_PATH "tile_stone.png";
+					tintR = tintG = tintB = 1 - (pWorld->sizeC - k) / 10.0f;
 					break;
 				case DM_TileType::DIAMOND:
 					filename = SPRITE_PATH "tile_diamond.png";
+					tintR = tintG = 1 - pTile->reward / 1000.0f / 2;
 					break;
 				case DM_TileType::EXPLOSIVE:
 					filename = SPRITE_PATH "tile_bomb.png";
@@ -296,10 +301,11 @@ void SceneMain::createWorldTileSprites() {
 				sprite->SetScale(SCALE);
 #ifdef _DEBUG
 				sprite->SetScale(SCALE * (1 - k / 50.0f)); // makes outline
-#else
 #endif
 				sprite->SetAlpha(0.98f);
-				sprite->SetTint(1 - (pWorld->sizeC-k)/10.0f);
+				sprite->SetRedTint(tintR);
+				sprite->SetGreenTint(tintG);
+				sprite->SetBlueTint(tintB);
 				m_pTileSprites[i][j][k] = sprite;
 				n++;
 			}
