@@ -37,6 +37,7 @@ SceneMain::~SceneMain()
 bool SceneMain::Initialise(Renderer& renderer)
 {
 	m_pRenderer = &renderer;
+	m_pGame = new DM_Game;
 
 	m_background = 0xdddddd;
 
@@ -48,18 +49,32 @@ bool SceneMain::Initialise(Renderer& renderer)
 		m_pAnimSprites[i] = NULL;
 	}
 
-	m_pGame = new DM_Game;
+	// Scene sprites:
+	Sprite* player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
+	m_pSprites[0] = player;
+	int n = 1;
+	Sprite* pHealthLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Health.png");
+	pHealthLabel->SetX(400);
+	pHealthLabel->SetY(200);
+	pHealthLabel->SetScale(-1);
+	m_pSprites[n++] = pHealthLabel;
+	Sprite* pHealth = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
+	pHealth->SetX(600);
+	pHealth->SetY(200);
+	pHealth->SetScale(0.25f);
+	float health = m_pGame->pPlayer->health / 100.0f;
+	pHealth->SetRedTint(0.2f + health);
+	pHealth->SetGreenTint(0.2f);
+	pHealth->SetBlueTint(0.2f);
+	m_pSprites[n++] = pHealth;
+
+	createWorldTileSprites();
 
 	// Cooldown times
 	m_pfStateCooldowns = new float[SDL_NUM_SCANCODES];
 	for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
 		m_pfStateCooldowns[i] = 0 seconds;
 	}
-
-	createWorldTileSprites();
-
-	Sprite *player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-	m_pSprites[0] = player;
 
 	return true;
 }
