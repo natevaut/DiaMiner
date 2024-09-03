@@ -21,6 +21,8 @@
 #define SPRITEN_PLAYER 0
 #define SPRITEN_HEALTHTEXT 1
 #define SPRITEN_HEALTHBALL 2
+#define SPRITEN_MONEYTEXT 3
+#define SPRITEN_MONEYBALL 4
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
@@ -70,6 +72,19 @@ bool SceneMain::Initialise(Renderer& renderer)
 	pHealth->SetY(200);
 	pHealth->SetScale(0.25f);
 	m_pSprites[SPRITEN_HEALTHBALL] = pHealth;
+	Sprite* pMoneyLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Cash.png");
+	pMoneyLabel->SetX(1000);
+	pMoneyLabel->SetY(200);
+	pMoneyLabel->SetScale(-1);
+	m_pSprites[SPRITEN_MONEYTEXT] = pMoneyLabel;
+	Sprite* pMoney = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
+	pMoney->SetX(1200);
+	pMoney->SetY(200);
+	pMoney->SetScale(0.0f);
+	pMoney->SetRedTint(0.3f);
+	pMoney->SetBlueTint(1.0f);
+	pMoney->SetGreenTint(0.5f);
+	m_pSprites[SPRITEN_MONEYBALL] = pMoney;
 
 	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
 	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
@@ -102,6 +117,9 @@ void SceneMain::Process(float deltaTime seconds)
 	pHealth->SetRedTint(0.2f + health * 0.8f);
 	pHealth->SetGreenTint(0.2f);
 	pHealth->SetBlueTint(0.2f);
+	// player cash
+	Sprite* pCash = m_pSprites[SPRITEN_MONEYBALL];
+	pCash->SetScale(pPlayer->money / 5000.0f);
 	// player action results
 	m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
 	m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(0);
