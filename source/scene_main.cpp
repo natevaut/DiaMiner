@@ -23,6 +23,7 @@
 #define SPRITEN_HEALTHBALL 2
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
+#define SPRITEN_GLIMMER 1
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
@@ -72,6 +73,8 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
 	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
+	AnimatedSprite* pGlimmer = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "glimmer.png");
+	m_pAnimSprites[SPRITEN_GLIMMER] = pGlimmer;
 
 	createWorldTileSprites();
 
@@ -99,17 +102,22 @@ void SceneMain::Process(float deltaTime seconds)
 	pHealth->SetRedTint(0.2f + health * 0.8f);
 	pHealth->SetGreenTint(0.2f);
 	pHealth->SetBlueTint(0.2f);
-	// player damage
-	switch (pPlayer->damageCause)
+	// player action results
+	m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
+	m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(0);
+	switch (pPlayer->latestAction)
 	{
-	case DamageCause::BOMB:
-		LogManager::GetInstance().Log("Showing explosion!");
+	case LatestAction::BOMB:
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(SCALE);
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
 		break;
-	default:
-		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(0);
+	case LatestAction::COLLECTED:
+		m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(SCALE);
+		m_pAnimSprites[SPRITEN_GLIMMER]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
+		m_pAnimSprites[SPRITEN_GLIMMER]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+		break;
+	default: break;
 	}
 	// ensure bounds
 	int width = m_pGame->pWorld->width;

@@ -6,10 +6,11 @@
 
 class DM_World;
 
-enum DamageCause {
+enum LatestAction {
     NONE,
     BOMB,
-    ENEMY
+    ENEMY,
+    COLLECTED
 };
 
 class DM_Player : public DM_Entity
@@ -29,7 +30,7 @@ protected:
 
     // instance variables:
 public:
-    enum DamageCause damageCause;
+    enum LatestAction latestAction;
 protected:
 
 };

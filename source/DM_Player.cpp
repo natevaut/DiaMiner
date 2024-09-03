@@ -10,7 +10,7 @@ const int BOMB_DAMAGE = 10;
 
 DM_Player::DM_Player()
     : DM_Entity(0, 0, 100, 0)
-    , damageCause(DamageCause::NONE)
+    , latestAction(LatestAction::NONE)
 {
 }
 
@@ -21,20 +21,22 @@ void DM_Player::tick()
 void DM_Player::diamond(int worth)
 {
     money += worth;
+
+    latestAction = LatestAction::COLLECTED;
 }
 
 void DM_Player::explosion(int value)
 {
     health -= value;
 
-    damageCause = DamageCause::BOMB;
+    latestAction = LatestAction::BOMB;
 }
 
 void DM_Player::attacked(int value)
 {
     health -= value;
 
-    damageCause = DamageCause::ENEMY;
+    latestAction = LatestAction::ENEMY;
 }
 
 void DM_Player::move(float dx, float dy)
@@ -42,7 +44,7 @@ void DM_Player::move(float dx, float dy)
     xTile += dx;
     yTile += dy;
 
-    damageCause = DamageCause::NONE;
+    latestAction = LatestAction::NONE;
 }
 
 void DM_Player::mineBelow(DM_World *pWorld)
