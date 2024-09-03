@@ -4,14 +4,12 @@
 
 #include "DM_Tile.h"
 
-#define TILE_DEPTH 3
-
 class DM_World
 {
     //methods:
 public:
 
-    DM_World(int width, int height);
+    DM_World(int width, int height, int depth);
     ~DM_World();
 
     void move(int dx, int dy);

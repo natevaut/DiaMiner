@@ -6,8 +6,8 @@
 #include "inlinehelper.h"
 #include "logmanager.h"
 
-DM_World::DM_World(int w, int h)
-    : width(w), height(h), depth(TILE_DEPTH)
+DM_World::DM_World(int w, int h, int d)
+    : width(w), height(h), depth(d)
     , wOffset(0), hOffset(0)
 {
     // mem allocate
