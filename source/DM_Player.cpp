@@ -6,7 +6,7 @@
 #include "DM_World.h"
 #include "DM_Tile.h"
 
-const int BOMB_DAMAGE = 25;
+const int BOMB_DAMAGE = 50;
 
 DM_Player::DM_Player()
     : DM_Entity(0, 0, 100, 0)
