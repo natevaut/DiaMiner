@@ -23,10 +23,9 @@ DM_World::DM_World(int w, int h)
             for (int k = 0; k < sizeC; k++)
             {
                 DM_Tile *pTile = DM_Tile::WeightedRandTile();
-                if (k == depth - 1) // top layer
+                // make top and bottom layers stone
+                if (k == depth - 1 || k == 0)
                     pTile = new DM_Tile; // clear (make stone)
-                else
-                    pTile->type = DM_TileType::DIAMOND;
                 pTiles[i][j][k] = pTile;
             }
         }
@@ -66,6 +65,8 @@ void DM_World::mineBelow(int x, int y)
     {
         if (k == sizeC - 1 || pTiles[y][x][k + 1] == NULL) // if is top or above is empty
         {
+            // do nothing if is bottom tile
+            if (k == 0) continue;
             // break top tile
             pTiles[y][x][k] = NULL;
             LogManager::GetInstance().Log("Tile broken.");
