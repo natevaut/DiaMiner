@@ -14,8 +14,12 @@
 #include "DM_Game.h"
 #include "DM_Tile.h"
 
-#define NSPRITES 10
 #define seconds
+
+#define PLAYER_SPRITEN 0
+#define HEALTHLABEL_SPRITEN 1
+#define HEALTHBALL_SPRITEN 2
+#define NSPRITES 10
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
@@ -51,22 +55,17 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 	// Scene sprites:
 	Sprite* player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-	m_pSprites[0] = player;
-	int n = 1;
+	m_pSprites[PLAYER_SPRITEN] = player;
 	Sprite* pHealthLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Health.png");
 	pHealthLabel->SetX(400);
 	pHealthLabel->SetY(200);
 	pHealthLabel->SetScale(-1);
-	m_pSprites[n++] = pHealthLabel;
+	m_pSprites[HEALTHLABEL_SPRITEN] = pHealthLabel;
 	Sprite* pHealth = m_pRenderer->CreateSprite(SPRITE_PATH "ball.png");
 	pHealth->SetX(600);
 	pHealth->SetY(200);
 	pHealth->SetScale(0.25f);
-	float health = m_pGame->pPlayer->health / 100.0f;
-	pHealth->SetRedTint(0.2f + health);
-	pHealth->SetGreenTint(0.2f);
-	pHealth->SetBlueTint(0.2f);
-	m_pSprites[n++] = pHealth;
+	m_pSprites[HEALTHBALL_SPRITEN] = pHealth;
 
 	createWorldTileSprites();
 
@@ -88,7 +87,12 @@ void SceneMain::Process(float deltaTime seconds)
 
 	// Player Tick
 	DM_Player* pPlayer = m_pGame->pPlayer;
-
+	// player health
+	float health = pPlayer->health / 100.0f;
+	Sprite* pHealth = m_pSprites[HEALTHBALL_SPRITEN];
+	pHealth->SetRedTint(0.2f + health * 0.8f);
+	pHealth->SetGreenTint(0.2f);
+	pHealth->SetBlueTint(0.2f);
 	// ensure bounds
 	int width = m_pGame->pWorld->width;
 	int height = m_pGame->pWorld->height;
@@ -100,11 +104,11 @@ void SceneMain::Process(float deltaTime seconds)
 		pPlayer->yTile = 0.0f;
 	if (pPlayer->yTile > height - 1)
 		pPlayer->yTile = height - 1;
-
+	// update pos
 	m_pSprites[0]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
 	m_pSprites[0]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
 	
-	// process all
+	// Process all sprites
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		if (m_pSprites[i] != 0)
@@ -202,7 +206,10 @@ void SceneMain::createWorldTileSprites() {
 				sprite->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
 				sprite->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
 				sprite->SetScale(SCALE);
-				//sprite->SetScale(SCALE * (1 - k / 90.0f)); // makes ouline
+#ifdef _DEBUG
+				sprite->SetScale(SCALE * (1 - k / 50.0f)); // makes outline
+#else
+#endif
 				sprite->SetAlpha(0.98f);
 				sprite->SetTint(1 - (pWorld->sizeC-k)/10.0f);
 				m_pTileSprites[i][j][k] = sprite;

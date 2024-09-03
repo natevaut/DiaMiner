@@ -13,7 +13,7 @@ public:
     ~DM_World();
 
     void move(int dx, int dy);
-    void mineBelow(int x, int y);
+    DM_Tile mineBelow(int x, int y);
 
 private:
     int getStack(int x, int y);

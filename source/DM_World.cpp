@@ -54,7 +54,7 @@ void DM_World::move(int dx, int dy)
     hOffset += dy;
 }
 
-void DM_World::mineBelow(int x, int y)
+DM_Tile DM_World::mineBelow(int x, int y)
 {
     assert(pTiles);
     assert(pTiles[y]);
@@ -67,10 +67,22 @@ void DM_World::mineBelow(int x, int y)
         {
             // do nothing if is bottom tile
             if (k == 0) continue;
+            if (pTiles[y][x][k] == NULL) continue;
             // break top tile
+            DM_Tile tile = *pTiles[y][x][k];
             pTiles[y][x][k] = NULL;
             LogManager::GetInstance().Log("Tile broken.");
-            break;
+            // explode tile below if it is a bomb
+            if (pTiles[y][x][k - 1] != NULL)
+            {
+                if (pTiles[y][x][k - 1]->type == DM_TileType::EXPLOSIVE)
+                {
+                    tile = *pTiles[y][x][k - 1];
+                    LogManager::GetInstance().Log("Tile broken (2).");
+                    pTiles[y][x][k - 1] = NULL;
+                }
+            }
+            return tile;
         }
     }
 
