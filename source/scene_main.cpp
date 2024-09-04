@@ -38,7 +38,7 @@
 const int SCALE = 5;
 const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
-const float ENEMY_CHANCE = 1e-5f;
+const int ENEMY_CHANCE = 1e5;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
@@ -53,6 +53,7 @@ SceneMain::SceneMain(int width, int height)
 	, m_pEnemySprites(NULL)
 	, m_iNumEnemies(0)
 {
+	srand((int)time(0));
 }
 SceneMain::~SceneMain()
 {
@@ -202,37 +203,29 @@ void SceneMain::Process(float deltaTime seconds)
 		break;
 	default: break;
 	}
-	// ensure bounds
-	int width = m_pGame->pWorld->width;
-	int height = m_pGame->pWorld->height;
-	if (pPlayer->xTile < 0.0f)
-		pPlayer->xTile = 0.0f;
-	if (pPlayer->xTile > width - 1)
-		pPlayer->xTile = width - 1;
-	if (pPlayer->yTile < 0.0f)
-		pPlayer->yTile = 0.0f;
-	if (pPlayer->yTile > height - 1)
-		pPlayer->yTile = height - 1;
 	// update pos
 	m_pPlayerSprite->SETSCREENX(pPlayer->xTile);
 	m_pPlayerSprite->SETSCREENY(pPlayer->yTile);
 
 	// New enemies
-	if (GetRandomPercentage() < ENEMY_CHANCE)
+	if (GetRandom(1, ENEMY_CHANCE) == 10)
 	{
+		int width = m_pGame->pWorld->width;
+		int height = m_pGame->pWorld->height;
 		int xPos = GetRandom(0, width - 1);
 		int yPos = GetRandom(0, height - 1);
 		DM_Enemy* pEnemy = new DM_Enemy(xPos, yPos);
 		m_pEnemies[m_iNumEnemies] = pEnemy;
 		Sprite* pEnemySprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-		pEnemySprite->SETSCREENX(pEnemy->yTile);
-		pEnemySprite->SETSCREENY(pEnemy->yTile);
 		m_pEnemySprites[m_iNumEnemies] = pEnemySprite;
 		m_iNumEnemies++;
 	}
 	// update all enemies
 	for (int i = 0; i < m_iNumEnemies; i++)
 	{
+		m_pEnemies[i]->Tick(m_pGame);
+		m_pEnemySprites[i]->SETSCREENX(m_pEnemies[i]->xTile);
+		m_pEnemySprites[i]->SETSCREENY(m_pEnemies[i]->yTile);
 		m_pEnemySprites[i]->Process(deltaTime);
 	}
 }
@@ -267,15 +260,16 @@ void SceneMain::Draw(Renderer &renderer)
 void SceneMain::ProcessInput(const Uint8* state) {
 	DM_Player* pPlayer = m_pGame->pPlayer;
 	DM_World* pWorld = m_pGame->pWorld;
-	if (state[SDL_SCANCODE_W]) pPlayer->move(0, -0.1f); // Move up
-	if (state[SDL_SCANCODE_A]) pPlayer->move(-0.1f, 0); // Move left
-	if (state[SDL_SCANCODE_S]) pPlayer->move(0, +0.1f); // Move down
-	if (state[SDL_SCANCODE_D]) pPlayer->move(+0.1f, 0); // Move right
+	float mvAmt = 0.05f;
+	if (state[SDL_SCANCODE_W]) pPlayer->Move(0, -mvAmt); // Move up
+	if (state[SDL_SCANCODE_A]) pPlayer->Move(-mvAmt, 0); // Move left
+	if (state[SDL_SCANCODE_S]) pPlayer->Move(0, mvAmt); // Move down
+	if (state[SDL_SCANCODE_D]) pPlayer->Move(mvAmt, 0); // Move right
 	if (state[SDL_SCANCODE_X]) // Mine down
 	{
 		if (m_pfStateCooldowns[SDL_SCANCODE_X] > 1.0f seconds)
 		{
-			pPlayer->mineBelow(pWorld);
+			pPlayer->MineBelow(pWorld);
 			m_pfStateCooldowns[SDL_SCANCODE_X] = 0 seconds;
 		}
 		

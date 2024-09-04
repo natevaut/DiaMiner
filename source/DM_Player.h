@@ -5,6 +5,7 @@
 #include "DM_Entity.h"
 
 class DM_World;
+class DM_Game;
 
 enum LatestAction {
     NONE,
@@ -19,9 +20,9 @@ class DM_Player : public DM_Entity
 public:
     DM_Player();
 
-    void tick() override;
-    void move(float dx, float dy);
-    void mineBelow(DM_World* pWorld);
+    void Tick(DM_Game* pGame);
+    void Move(float dx, float dy);
+    void MineBelow(DM_World* pWorld);
 
 protected:
     void diamond(int worth);

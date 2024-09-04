@@ -3,6 +3,7 @@
 #define DM_ENTITY_H
 
 #include "defs.h"
+class DM_Game;
 
 class DM_Entity
 {
@@ -11,7 +12,9 @@ public:
     DM_Entity(float x, float y, int health, int money);
     virtual ~DM_Entity();
     
-    virtual void tick() = 0;
+    virtual void Tick(DM_Game* pGame) = 0;
+    virtual void Move(float dx, float dy) = 0;
+    virtual void EnsureBounds(DM_Game* pGame);
 
     // instance variables
 public:

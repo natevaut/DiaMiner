@@ -14,8 +14,9 @@ DM_Player::DM_Player()
 {
 }
 
-void DM_Player::tick()
+void DM_Player::Tick(DM_Game* pGame)
 {
+    EnsureBounds(pGame);
 }
 
 void DM_Player::diamond(int worth)
@@ -39,7 +40,7 @@ void DM_Player::attacked(int value)
     latestAction = LatestAction::ENEMY;
 }
 
-void DM_Player::move(float dx, float dy)
+void DM_Player::Move(float dx, float dy)
 {
     xTile += dx;
     yTile += dy;
@@ -47,7 +48,7 @@ void DM_Player::move(float dx, float dy)
     latestAction = LatestAction::NONE;
 }
 
-void DM_Player::mineBelow(DM_World *pWorld)
+void DM_Player::MineBelow(DM_World *pWorld)
 {
     DM_Tile tile = pWorld->mineBelow((int) (xTile + 0.5), (int) (yTile + 0.5));
     switch (tile.type) {

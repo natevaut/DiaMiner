@@ -10,6 +10,10 @@ enum class DM_Personality
     PASSIVE
 };
 
+enum DM_Direction
+{
+    UP, DOWN, LEFT, RIGHT
+};
 
 class DM_Enemy : public DM_Entity
 {
@@ -17,7 +21,8 @@ class DM_Enemy : public DM_Entity
 public:
     DM_Enemy(float x, float y);
 
-    void tick() override;
+    void Tick(DM_Game* pGame);
+    void Move(float dx, float dy);
 
     static DM_Personality randPersonality();
 
@@ -30,6 +35,8 @@ private:
 public:
     DM_Personality m_personality;
     bool m_isAttacking;
+private:
+    enum DM_Direction m_direction;
 };
 
 #endif // DM_ENEMY_H
