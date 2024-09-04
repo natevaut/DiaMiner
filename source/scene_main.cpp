@@ -13,6 +13,8 @@
 
 #include "DM_Game.h"
 #include "DM_Tile.h"
+#include "DM_Player.h"
+#include "DM_Enemy.h"
 
 #define seconds
 
@@ -33,6 +35,7 @@
 const int SCALE = 5;
 const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
+const float ENEMY_CHANCE = 0.0001f;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
@@ -43,6 +46,9 @@ SceneMain::SceneMain(int width, int height)
 	, m_pGame(NULL)
 	, m_pfStateCooldowns(NULL)
 	, m_pPlayerSprite(NULL)
+	, m_pEnemies(NULL)
+	, m_pEnemySprites(NULL)
+	, m_iNumEnemies(0)
 {
 }
 SceneMain::~SceneMain()
@@ -57,10 +63,14 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 	m_pSprites = new Sprite *[NSPRITES];
 	m_pAnimSprites = new AnimatedSprite *[NSPRITES];
+	m_pEnemies = new DM_Enemy *[NSPRITES];
+	m_pEnemySprites = new Sprite *[NSPRITES];
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		m_pSprites[i] = NULL;
 		m_pAnimSprites[i] = NULL;
+		m_pEnemies[i] = NULL;
+		m_pEnemySprites[i] = NULL;
 	}
 
 	m_pPlayerSprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
@@ -203,6 +213,25 @@ void SceneMain::Process(float deltaTime seconds)
 	// update pos
 	m_pPlayerSprite->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
 	m_pPlayerSprite->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+
+	// New enemies
+	if (GetRandomPercentage() < ENEMY_CHANCE)
+	{
+		int xPos = GetRandom(0, width - 1);
+		int yPos = GetRandom(0, height - 1);
+		DM_Enemy* pEnemy = new DM_Enemy(xPos, yPos);
+		m_pEnemies[m_iNumEnemies] = pEnemy;
+		Sprite* pEnemySprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
+		pEnemySprite->SetX(WORLD_START_X + pEnemy->xTile * SCALE * TILE_SIZE_PX);
+		pEnemySprite->SetY(WORLD_START_Y + pEnemy->yTile * SCALE * TILE_SIZE_PX);
+		m_pEnemySprites[m_iNumEnemies] = pEnemySprite;
+		m_iNumEnemies++;
+	}
+	// update all enemies
+	for (int i = 0; i < m_iNumEnemies; i++)
+	{
+		m_pEnemySprites[i]->Process(deltaTime);
+	}
 }
 
 void SceneMain::Draw(Renderer &renderer)
@@ -226,6 +255,8 @@ void SceneMain::Draw(Renderer &renderer)
 			m_pSprites[i]->Draw(renderer);
 		if (m_pAnimSprites[i] != 0)
 			m_pAnimSprites[i]->Draw(renderer);
+		if (m_pEnemySprites[i] != 0)
+			m_pEnemySprites[i]->Draw(renderer);
 	}
 	m_pPlayerSprite->Draw(renderer);
 }

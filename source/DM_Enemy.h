@@ -4,7 +4,7 @@
 
 #include "DM_Entity.h"
 
-enum class Personality
+enum class DM_Personality
 {
     AGGRESSIVE,
     PASSIVE
@@ -15,9 +15,11 @@ class DM_Enemy : public DM_Entity
 {
     //methods:
 public:
-    DM_Enemy(float x, float y, int health, int money, Personality personality);
+    DM_Enemy(float x, float y);
 
     void tick() override;
+
+    static DM_Personality randPersonality();
 
 private:
     void randomMove();
@@ -26,7 +28,7 @@ private:
 
     //instance variables:
 public:
-    Personality m_personality;
+    DM_Personality m_personality;
     bool m_isAttacking;
 };
 

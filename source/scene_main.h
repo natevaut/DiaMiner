@@ -12,6 +12,7 @@ class Renderer;
 class Sprite;
 class AnimatedSprite;
 class DM_Game;
+class DM_Enemy;
 
 class SceneMain : public Scene
 {
@@ -38,10 +39,13 @@ protected:
 	Sprite **m_pSprites;
 	AnimatedSprite** m_pAnimSprites;
 	Sprite* m_pPlayerSprite;
+	DM_Enemy** m_pEnemies;
+	Sprite** m_pEnemySprites;
 private:
 	float* m_pfStateCooldowns;
 	Renderer* m_pRenderer;
 	AnimatedSprite**** m_pTileSprites;
+	int m_iNumEnemies;
 };
 
 #endif //   SCENEMAIN_H
