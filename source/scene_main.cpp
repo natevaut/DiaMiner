@@ -32,10 +32,13 @@
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
 
+#define SETSCREENX(val) SetX(WORLD_START_X + val * SCALE * TILE_SIZE_PX)
+#define SETSCREENY(val) SetY(WORLD_START_Y + val * SCALE * TILE_SIZE_PX)
+
 const int SCALE = 5;
 const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
-const float ENEMY_CHANCE = 0.0001f;
+const float ENEMY_CHANCE = 1e-5f;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
@@ -189,13 +192,13 @@ void SceneMain::Process(float deltaTime seconds)
 	{
 	case LatestAction::BOMB:
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(SCALE);
-		m_pAnimSprites[SPRITEN_EXPLOSION]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
-		m_pAnimSprites[SPRITEN_EXPLOSION]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SETSCREENX(pPlayer->xTile);
+		m_pAnimSprites[SPRITEN_EXPLOSION]->SETSCREENY(pPlayer->yTile);
 		break;
 	case LatestAction::COLLECTED:
 		m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(SCALE);
-		m_pAnimSprites[SPRITEN_GLIMMER]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
-		m_pAnimSprites[SPRITEN_GLIMMER]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+		m_pAnimSprites[SPRITEN_GLIMMER]->SETSCREENX(pPlayer->xTile);
+		m_pAnimSprites[SPRITEN_GLIMMER]->SETSCREENY(pPlayer->yTile);
 		break;
 	default: break;
 	}
@@ -211,8 +214,8 @@ void SceneMain::Process(float deltaTime seconds)
 	if (pPlayer->yTile > height - 1)
 		pPlayer->yTile = height - 1;
 	// update pos
-	m_pPlayerSprite->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
-	m_pPlayerSprite->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+	m_pPlayerSprite->SETSCREENX(pPlayer->xTile);
+	m_pPlayerSprite->SETSCREENY(pPlayer->yTile);
 
 	// New enemies
 	if (GetRandomPercentage() < ENEMY_CHANCE)
@@ -222,8 +225,8 @@ void SceneMain::Process(float deltaTime seconds)
 		DM_Enemy* pEnemy = new DM_Enemy(xPos, yPos);
 		m_pEnemies[m_iNumEnemies] = pEnemy;
 		Sprite* pEnemySprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-		pEnemySprite->SetX(WORLD_START_X + pEnemy->xTile * SCALE * TILE_SIZE_PX);
-		pEnemySprite->SetY(WORLD_START_Y + pEnemy->yTile * SCALE * TILE_SIZE_PX);
+		pEnemySprite->SETSCREENX(pEnemy->yTile);
+		pEnemySprite->SETSCREENY(pEnemy->yTile);
 		m_pEnemySprites[m_iNumEnemies] = pEnemySprite;
 		m_iNumEnemies++;
 	}
@@ -329,8 +332,8 @@ void SceneMain::createWorldTileSprites() {
 
 				// create animated sprite
 				AnimatedSprite* sprite = m_pRenderer->CreateAnimatedSprite(filename);
-				sprite->SetX(WORLD_START_X + SCALE * TILE_SIZE_PX * j);
-				sprite->SetY(WORLD_START_Y + SCALE * TILE_SIZE_PX * i);
+				sprite->SETSCREENX(j);
+				sprite->SETSCREENY(i);
 				sprite->SetScale(SCALE);
 #ifdef _DEBUG
 				sprite->SetScale(SCALE * (1 - k / 50.0f)); // makes outline
