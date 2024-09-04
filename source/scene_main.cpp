@@ -18,7 +18,6 @@
 
 #define NSPRITES 20
 // static sprites:
-#define SPRITEN_PLAYER 0
 #define SPRITEN_HEALTHTEXT 1
 #define SPRITEN_HEALTHBALLBG 2
 #define SPRITEN_HEALTHBALL 3
@@ -43,6 +42,7 @@ SceneMain::SceneMain(int width, int height)
 	, m_pRenderer(NULL)
 	, m_pGame(NULL)
 	, m_pfStateCooldowns(NULL)
+	, m_pPlayerSprite(NULL)
 {
 }
 SceneMain::~SceneMain()
@@ -63,9 +63,9 @@ bool SceneMain::Initialise(Renderer& renderer)
 		m_pAnimSprites[i] = NULL;
 	}
 
+	m_pPlayerSprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
+
 	// Scene sprites:
-	Sprite* player = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
-	m_pSprites[SPRITEN_PLAYER] = player;
 	Sprite* pHealthLabel = m_pRenderer->CreateSprite(SPRITE_PATH "label_Health.png");
 	pHealthLabel->SetX(400);
 	pHealthLabel->SetY(200);
@@ -132,6 +132,7 @@ bool SceneMain::Initialise(Renderer& renderer)
 void SceneMain::Process(float deltaTime seconds)
 {
 	// Process all sprites
+	m_pPlayerSprite->Process(deltaTime);
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		if (m_pSprites[i] != 0)
@@ -200,8 +201,8 @@ void SceneMain::Process(float deltaTime seconds)
 	if (pPlayer->yTile > height - 1)
 		pPlayer->yTile = height - 1;
 	// update pos
-	m_pSprites[0]->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
-	m_pSprites[0]->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
+	m_pPlayerSprite->SetX(WORLD_START_X + pPlayer->xTile * SCALE * TILE_SIZE_PX);
+	m_pPlayerSprite->SetY(WORLD_START_Y + pPlayer->yTile * SCALE * TILE_SIZE_PX);
 }
 
 void SceneMain::Draw(Renderer &renderer)
@@ -218,7 +219,7 @@ void SceneMain::Draw(Renderer &renderer)
 				AnimatedSprite* pSprite = m_pTileSprites[i][j][k];
 				pSprite->Draw(renderer);
 			}
-	// then draw regular sprites (i.e. player and HUD) over animated ones (tiles)
+	// then draw regular sprites (i.e. player and HUD) over animated ones (tiles
 	for (int i = 0; i < NSPRITES; i++)
 	{
 		if (m_pSprites[i] != 0)
@@ -226,6 +227,7 @@ void SceneMain::Draw(Renderer &renderer)
 		if (m_pAnimSprites[i] != 0)
 			m_pAnimSprites[i]->Draw(renderer);
 	}
+	m_pPlayerSprite->Draw(renderer);
 }
 
 void SceneMain::ProcessInput(const Uint8* state) {
