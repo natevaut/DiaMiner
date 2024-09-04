@@ -37,8 +37,11 @@ Game::Game()
 	, m_fExecutionTime(0)
 	, m_iFrameCount(0)
 	, m_iFPS(0)
+#if _DEBUG
 	, m_iCurrentScene(SCENEID_MAIN)
-	// , m_iCurrentScene(SCENEID_AUT)
+#else
+	, m_iCurrentScene(SCENEID_AUT)
+#endif
 	, m_pScenes(0)
 	, m_pSprites(0)
 {

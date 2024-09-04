@@ -330,7 +330,7 @@ void SceneMain::createWorldTileSprites() {
 				sprite->SETSCREENX(j);
 				sprite->SETSCREENY(i);
 				sprite->SetScale(SCALE);
-#ifdef _DEBUG
+#if _DEBUG
 				sprite->SetScale(SCALE * (1 - k / 50.0f)); // makes outline
 #endif
 				sprite->SetAlpha(0.98f);
