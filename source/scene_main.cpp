@@ -267,7 +267,7 @@ void SceneMain::ProcessInput(const Uint8* state) {
 	if (state[SDL_SCANCODE_D]) pPlayer->Move(mvAmt, 0); // Move right
 	if (state[SDL_SCANCODE_X]) // Mine down
 	{
-		if (m_pfStateCooldowns[SDL_SCANCODE_X] > 1.0f seconds)
+		if (m_pfStateCooldowns[SDL_SCANCODE_X] > 0.3f seconds)
 		{
 			pPlayer->MineBelow(pWorld);
 			m_pfStateCooldowns[SDL_SCANCODE_X] = 0 seconds;
