@@ -174,6 +174,7 @@ void SceneMain::Process(float deltaTime seconds)
 
 	// Player Tick
 	DM_Player* pPlayer = m_pGame->pPlayer;
+	pPlayer->Tick(m_pGame);
 	// win/lose conditions
 	if (pPlayer->money > 1000)
 		m_pGame->outcome = Outcome::PLAYER_WINS;
