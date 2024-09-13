@@ -28,6 +28,7 @@
 #define SPRITEN_MONEYBALL 6
 #define SPRITEN_WINMSG 10
 #define SPRITEN_LOSEMSG 11
+#define SPRITEN_CONTROLS 15
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
@@ -126,6 +127,10 @@ bool SceneMain::Initialise(Renderer& renderer)
 	pLoseMsg->SetY(1200);
 	pLoseMsg->SetScale(0.0f);
 	m_pSprites[SPRITEN_LOSEMSG] = pLoseMsg;
+	Sprite* pControls = m_pRenderer->CreateSprite(SPRITE_PATH "label_Controls.png");
+	pControls->SetX(800);
+	pControls->SetY(1100);
+	m_pSprites[SPRITEN_CONTROLS] = pControls;
 
 	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
 	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
