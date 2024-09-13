@@ -85,7 +85,8 @@ DM_Tile DM_World::mineBelow(int x, int y)
             return tile;
         }
     }
-
+    // return empty tile
+    return DM_Tile();
 }
 
 int DM_World::getStack(int x, int y)

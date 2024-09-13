@@ -33,13 +33,13 @@
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
 
-#define SETSCREENX(val) SetX(WORLD_START_X + val * SCALE * TILE_SIZE_PX)
-#define SETSCREENY(val) SetY(WORLD_START_Y + val * SCALE * TILE_SIZE_PX)
+#define SETSCREENX(val) SetX(WORLD_START_X + (int)val * SCALE * TILE_SIZE_PX)
+#define SETSCREENY(val) SetY(WORLD_START_Y + (int)val * SCALE * TILE_SIZE_PX)
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
-const int ENEMY_CHANCE = 1e5;
+const int ENEMY_CHANCE = /* 1 in */ 10000;
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
@@ -220,7 +220,7 @@ void SceneMain::Process(float deltaTime seconds)
 		int height = m_pGame->pWorld->height;
 		int xPos = GetRandom(0, width - 1);
 		int yPos = GetRandom(0, height - 1);
-		DM_Enemy* pEnemy = new DM_Enemy(xPos, yPos);
+		DM_Enemy* pEnemy = new DM_Enemy((float)xPos, (float)yPos);
 		m_pEnemies[m_iNumEnemies] = pEnemy;
 		Sprite* pEnemySprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
 		m_pEnemySprites[m_iNumEnemies] = pEnemySprite;
