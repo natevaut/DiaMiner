@@ -1,0 +1,6 @@
+Mandatory:
+- Restart on keypress
+- Audio
+A-grade:
+- Enemy attacking
+- Data driven design
