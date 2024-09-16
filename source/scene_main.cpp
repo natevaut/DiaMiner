@@ -33,8 +33,8 @@
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
 
-#define SETSCREENX(val) SetX(WORLD_START_X + (int)val * SCALE * TILE_SIZE_PX)
-#define SETSCREENY(val) SetY(WORLD_START_Y + (int)val * SCALE * TILE_SIZE_PX)
+#define SETSCREENX(val) SetX((int)(WORLD_START_X + val * SCALE * TILE_SIZE_PX))
+#define SETSCREENY(val) SetY((int)(WORLD_START_Y + val * SCALE * TILE_SIZE_PX))
 
 const int SCALE = 5;
 const int WORLD_START_X = 300;
