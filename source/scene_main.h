@@ -26,6 +26,7 @@ public:
 	virtual void ProcessInput(const Uint8*state);
 
 protected:
+	void Reset(void);
 private:
 	SceneMain(const SceneMain&scene);
 	SceneMain&operator=(const SceneMain&scene);

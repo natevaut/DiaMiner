@@ -1,5 +1,4 @@
-Mandatory:
-- Restart on keypress
+B-grade:
 - Audio
 A-grade:
 - Enemy attacking

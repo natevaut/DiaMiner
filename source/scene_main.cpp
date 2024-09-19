@@ -28,6 +28,7 @@
 #define SPRITEN_MONEYBALL 6
 #define SPRITEN_WINMSG 10
 #define SPRITEN_LOSEMSG 11
+#define SPRITEN_RESTARTMSG 12
 #define SPRITEN_CONTROLS 15
 // animated sprites:
 #define SPRITEN_EXPLOSION 0
@@ -131,6 +132,10 @@ bool SceneMain::Initialise(Renderer& renderer)
 	pControls->SetX(800);
 	pControls->SetY(1100);
 	m_pSprites[SPRITEN_CONTROLS] = pControls;
+	Sprite* pRestartMsg = m_pRenderer->CreateSprite(SPRITE_PATH "label_TryAgain.png");
+	pRestartMsg->SetX(800);
+	pRestartMsg->SetY(1300);
+	m_pSprites[SPRITEN_RESTARTMSG] = pRestartMsg;
 
 	AnimatedSprite* pExplosion = m_pRenderer->CreateAnimatedSprite(SPRITE_PATH "explosion.png");
 	m_pAnimSprites[SPRITEN_EXPLOSION] = pExplosion;
@@ -164,12 +169,20 @@ void SceneMain::Process(float deltaTime seconds)
 	if (m_pGame->outcome == Outcome::PLAYER_WINS)
 	{
 		m_pSprites[SPRITEN_WINMSG]->SetScale(-2.0f);
+		m_pSprites[SPRITEN_RESTARTMSG]->SetScale(-1.0f);
 		return;
 	}
 	else if (m_pGame->outcome == Outcome::PLAYER_LOSES)
 	{
 		m_pSprites[SPRITEN_LOSEMSG]->SetScale(-2.0f);
+		m_pSprites[SPRITEN_RESTARTMSG]->SetScale(-1.0f);
 		return;
+	}
+	else
+	{
+		m_pSprites[SPRITEN_WINMSG]->SetScale(0.0f);
+		m_pSprites[SPRITEN_LOSEMSG]->SetScale(0.0f);
+		m_pSprites[SPRITEN_RESTARTMSG]->SetScale(0.0f);
 	}
 
 	// Cooldown times
@@ -278,8 +291,20 @@ void SceneMain::ProcessInput(const Uint8* state) {
 			pPlayer->MineBelow(pWorld);
 			m_pfStateCooldowns[SDL_SCANCODE_X] = 0 seconds;
 		}
-		
 	}
+	// Restart on keypress
+	if (state[SDL_SCANCODE_R])
+	{
+		Reset();
+	}
+}
+
+void SceneMain::Reset()
+{
+	m_pGame = new DM_Game;
+	createWorldTileSprites();
+	m_pEnemies = NULL;
+	m_iNumEnemies = 0;
 }
 
 void SceneMain::createWorldTileSprites() {
