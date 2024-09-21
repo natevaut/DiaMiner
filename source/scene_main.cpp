@@ -260,6 +260,7 @@ void SceneMain::Process(float deltaTime seconds)
 		bool isAggro = pEnemy->m_personality == DM_Personality::AGGRESSIVE;
 		bool withindist = dx > -dist && dx < dist && dy > -dist && dy < dist;
 		bool within2dist = dx > -dist * 2 && dx < dist * 2 && dy > -dist * 2 && dy < dist * 2;
+		pEnemySprite->SetScale(withindist ? 1.0f + GetRandomPercentage() / 3.0f : 1.0f);
 		if (isAggro)
 		{
 			if (withindist)
@@ -289,12 +290,21 @@ void SceneMain::Process(float deltaTime seconds)
 		}
 		else // passive
 		{
-			pEnemySprite->SetRedTint(0.8f);
-			pEnemySprite->SetGreenTint(0.8f);
-			pEnemySprite->SetBlueTint(1.0f);
 			if (withindist)
 			{
+				// change tint to bright aqua
+				pEnemySprite->SetRedTint(0.0f);
+				pEnemySprite->SetGreenTint(1.0f);
+				pEnemySprite->SetBlueTint(1.0f);
+				// take away money
 				pPlayer->money--;
+			}
+			else
+			{
+				// change tint to dim aqua
+				pEnemySprite->SetRedTint(0.5f);
+				pEnemySprite->SetGreenTint(0.8f);
+				pEnemySprite->SetBlueTint(0.8f);
 			}
 		}
 	}
