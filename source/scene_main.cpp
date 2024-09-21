@@ -257,32 +257,46 @@ void SceneMain::Process(float deltaTime seconds)
 		int dx = pEnemy->xTile - pPlayer->xTile;
 		int dy = pEnemy->yTile - pPlayer->yTile;
 		float dist = 1.0f;
+		bool isAggro = pEnemy->m_personality == DM_Personality::AGGRESSIVE;
 		bool withindist = dx > -dist && dx < dist && dy > -dist && dy < dist;
 		bool within2dist = dx > -dist * 2 && dx < dist * 2 && dy > -dist * 2 && dy < dist * 2;
-		if (withindist)
+		if (isAggro)
 		{
-			// change tint to bright red
-			pEnemySprite->SetRedTint(1.0f);
-			pEnemySprite->SetGreenTint(0.0f);
-			pEnemySprite->SetBlueTint(0.0f);
-			// damage player
-			pPlayer->health -= 1;
+			if (withindist)
+			{
+				// change tint to bright red
+				pEnemySprite->SetRedTint(1.0f);
+				pEnemySprite->SetGreenTint(0.0f);
+				pEnemySprite->SetBlueTint(0.0f);
+				// damage player
+				pPlayer->health--;
+				pPlayer->money--;
+			}
+			else if (within2dist)
+			{
+				// change tint to mid red
+				pEnemySprite->SetRedTint(0.8f);
+				pEnemySprite->SetGreenTint(0.5f);
+				pEnemySprite->SetBlueTint(0.5f);
+			}
+			else
+			{
+				// change tint to dim red
+				pEnemySprite->SetRedTint(0.6f);
+				pEnemySprite->SetGreenTint(0.5f);
+				pEnemySprite->SetBlueTint(0.5f);
+			}
 		}
-		else if (within2dist)
+		else // passive
 		{
-			// change tint to dim red
 			pEnemySprite->SetRedTint(0.8f);
-			pEnemySprite->SetGreenTint(0.5f);
-			pEnemySprite->SetBlueTint(0.5f);
-		}
-		else
-		{
-			// change tint to plain
-			pEnemySprite->SetRedTint(1.0f);
-			pEnemySprite->SetGreenTint(1.0f);
+			pEnemySprite->SetGreenTint(0.8f);
 			pEnemySprite->SetBlueTint(1.0f);
+			if (withindist)
+			{
+				pPlayer->money--;
+			}
 		}
-		// shade sprite depending on dist to player
 	}
 }
 
