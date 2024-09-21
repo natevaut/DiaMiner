@@ -40,7 +40,11 @@
 const int SCALE = 5;
 const int WORLD_START_X = 300;
 const int WORLD_START_Y = 300;
+#if _DEBUG
+const int ENEMY_CHANCE = /* 1 in */ 100;
+#else
 const int ENEMY_CHANCE = /* 1 in */ 10000;
+#endif
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
@@ -231,8 +235,8 @@ void SceneMain::Process(float deltaTime seconds)
 	{
 		int width = m_pGame->pWorld->width;
 		int height = m_pGame->pWorld->height;
-		int xPos = GetRandom(0, width - 1);
-		int yPos = GetRandom(0, height - 1);
+		int xPos = GetRandom(0, width);
+		int yPos = GetRandom(0, height);
 		DM_Enemy* pEnemy = new DM_Enemy((float)xPos, (float)yPos);
 		m_pEnemies[m_iNumEnemies] = pEnemy;
 		Sprite* pEnemySprite = m_pRenderer->CreateSprite(SPRITE_PATH "player.png");
@@ -242,10 +246,43 @@ void SceneMain::Process(float deltaTime seconds)
 	// update all enemies
 	for (int i = 0; i < m_iNumEnemies; i++)
 	{
-		m_pEnemies[i]->Tick(m_pGame);
-		m_pEnemySprites[i]->SETSCREENX(m_pEnemies[i]->xTile);
-		m_pEnemySprites[i]->SETSCREENY(m_pEnemies[i]->yTile);
-		m_pEnemySprites[i]->Process(deltaTime);
+		DM_Enemy *pEnemy = m_pEnemies[i];
+		Sprite* pEnemySprite = m_pEnemySprites[i];
+
+		pEnemy->Tick(m_pGame);
+		pEnemySprite->SETSCREENX(pEnemy->xTile);
+		pEnemySprite->SETSCREENY(pEnemy->yTile);
+		pEnemySprite->Process(deltaTime);
+		// check if near player
+		int dx = pEnemy->xTile - pPlayer->xTile;
+		int dy = pEnemy->yTile - pPlayer->yTile;
+		float dist = 1.0f;
+		bool withindist = dx > -dist && dx < dist && dy > -dist && dy < dist;
+		bool within2dist = dx > -dist * 2 && dx < dist * 2 && dy > -dist * 2 && dy < dist * 2;
+		if (withindist)
+		{
+			// change tint to bright red
+			pEnemySprite->SetRedTint(1.0f);
+			pEnemySprite->SetGreenTint(0.0f);
+			pEnemySprite->SetBlueTint(0.0f);
+			// damage player
+			pPlayer->health -= 1;
+		}
+		else if (within2dist)
+		{
+			// change tint to dim red
+			pEnemySprite->SetRedTint(0.8f);
+			pEnemySprite->SetGreenTint(0.5f);
+			pEnemySprite->SetBlueTint(0.5f);
+		}
+		else
+		{
+			// change tint to plain
+			pEnemySprite->SetRedTint(1.0f);
+			pEnemySprite->SetGreenTint(1.0f);
+			pEnemySprite->SetBlueTint(1.0f);
+		}
+		// shade sprite depending on dist to player
 	}
 }
 

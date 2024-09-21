@@ -24,7 +24,7 @@ void DM_Enemy::Move(float x, float y)
 
 void DM_Enemy::randomMove()
 {
-    float mvChangeChance = 0.01f;
+    float mvChangeChance = 0.05f;
     if (GetRandomPercentage() < mvChangeChance / 4) m_direction = DM_Direction::UP;
     if (GetRandomPercentage() < mvChangeChance / 4) m_direction = DM_Direction::DOWN;
     if (GetRandomPercentage() < mvChangeChance / 4) m_direction = DM_Direction::LEFT;
