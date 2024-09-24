@@ -376,7 +376,7 @@ void SceneMain::Reset()
 {
 	m_pGame = new DM_Game;
 	createWorldTileSprites();
-	m_pEnemies = NULL;
+	m_pEnemies = new DM_Enemy*[10];
 	m_iNumEnemies = 0;
 }
 
