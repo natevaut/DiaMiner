@@ -308,6 +308,15 @@ void SceneMain::Process(float deltaTime seconds)
 			}
 		}
 	}
+	// glint tiles every so often
+	DM_World *pWorld = m_pGame->pWorld;
+	for (int i = 0; i < pWorld->sizeA; i++)
+		for (int j = 0; j < pWorld->sizeB; j++)
+			for (int k = 0; k < pWorld->sizeC; k++)
+			{
+				bool doGlint = GetRandomPercentage() < 0.01f;
+				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.8f : 0.98f);
+			}
 }
 
 void SceneMain::Draw(Renderer &renderer)
@@ -424,7 +433,6 @@ void SceneMain::createWorldTileSprites() {
 #if _DEBUG
 				sprite->SetScale(SCALE * (1 - k / 50.0f)); // makes outline
 #endif
-				sprite->SetAlpha(0.98f);
 				sprite->SetRedTint(tintR);
 				sprite->SetGreenTint(tintG);
 				sprite->SetBlueTint(tintB);
