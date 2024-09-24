@@ -254,8 +254,8 @@ void SceneMain::Process(float deltaTime seconds)
 		pEnemySprite->SETSCREENY(pEnemy->yTile);
 		pEnemySprite->Process(deltaTime);
 		// check if near player
-		int dx = pEnemy->xTile - pPlayer->xTile;
-		int dy = pEnemy->yTile - pPlayer->yTile;
+		float dx = pEnemy->xTile - pPlayer->xTile;
+		float dy = pEnemy->yTile - pPlayer->yTile;
 		float dist = 1.0f;
 		bool isAggro = pEnemy->m_personality == DM_Personality::AGGRESSIVE;
 		bool withindist = dx > -dist && dx < dist && dy > -dist && dy < dist;
