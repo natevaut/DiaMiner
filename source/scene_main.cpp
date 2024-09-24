@@ -308,6 +308,8 @@ void SceneMain::Process(float deltaTime seconds)
 			}
 		}
 	}
+#if _DEBUG
+#else
 	// glint tiles every so often
 	DM_World *pWorld = m_pGame->pWorld;
 	for (int i = 0; i < pWorld->sizeA; i++)
@@ -317,6 +319,7 @@ void SceneMain::Process(float deltaTime seconds)
 				bool doGlint = GetRandomPercentage() < 0.01f;
 				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.8f : 0.98f);
 			}
+#endif
 }
 
 void SceneMain::Draw(Renderer &renderer)
