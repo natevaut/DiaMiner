@@ -388,6 +388,7 @@ void SceneMain::Reset()
 	createWorldTileSprites();
 	m_pEnemies = new DM_Enemy*[10];
 	m_iNumEnemies = 0;
+	m_fElapsedSeconds = 0;
 }
 
 void SceneMain::createWorldTileSprites() {
