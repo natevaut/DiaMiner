@@ -317,7 +317,7 @@ void SceneMain::Process(float deltaTime seconds)
 			for (int k = 0; k < pWorld->sizeC; k++)
 			{
 				bool doGlint = GetRandomPercentage() < 0.01f;
-				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.8f : 0.98f);
+				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.8f : 0.99f);
 			}
 #endif
 }
