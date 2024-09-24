@@ -43,6 +43,7 @@ protected:
 	DM_Enemy** m_pEnemies;
 	Sprite** m_pEnemySprites;
 private:
+	float m_fElapsedSeconds;
 	float* m_pfStateCooldowns;
 	Renderer* m_pRenderer;
 	AnimatedSprite**** m_pTileSprites;

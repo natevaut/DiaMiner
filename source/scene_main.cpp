@@ -44,10 +44,13 @@ const int WORLD_START_Y = 300;
 const int ENEMY_CHANCE = /* 1 in */ 100;
 #else
 const int ENEMY_CHANCE = /* 1 in */ 10000;
+const float flickerTime = 5.0f;
+const float flickerDuration = 0.2f;
 #endif
 
 SceneMain::SceneMain(int width, int height)
 	: Scene(width, height)
+	, m_fElapsedSeconds(0)
 	, m_pSprites(NULL)
 	, m_pAnimSprites(NULL)
 	, m_pTileSprites(NULL)
@@ -159,6 +162,8 @@ bool SceneMain::Initialise(Renderer& renderer)
 
 void SceneMain::Process(float deltaTime seconds)
 {
+	m_fElapsedSeconds += deltaTime;
+
 	// Process all sprites
 	m_pPlayerSprite->Process(deltaTime);
 	for (int i = 0; i < NSPRITES; i++)
@@ -316,8 +321,13 @@ void SceneMain::Process(float deltaTime seconds)
 		for (int j = 0; j < pWorld->sizeB; j++)
 			for (int k = 0; k < pWorld->sizeC; k++)
 			{
-				bool doGlint = GetRandomPercentage() < 0.01f;
-				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.8f : 0.99f);
+				// manual float modulus
+				float delta = m_fElapsedSeconds;
+				while (delta > flickerTime) 
+					delta -= flickerTime;
+
+				bool doGlint = delta <= flickerDuration;
+				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.95f : 0.99f);
 			}
 #endif
 }
