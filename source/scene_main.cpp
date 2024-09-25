@@ -43,7 +43,7 @@ const int WORLD_START_Y = 300;
 #if _DEBUG
 const int ENEMY_CHANCE = /* 1 in */ 100;
 #else
-const int ENEMY_CHANCE = /* 1 in */ 10000;
+const int ENEMY_CHANCE = /* 1 in */ 2500;
 const float flickerTime = 5.0f;
 const float flickerDuration = 0.2f;
 #endif
@@ -386,7 +386,11 @@ void SceneMain::Reset()
 {
 	m_pGame = new DM_Game;
 	createWorldTileSprites();
-	m_pEnemies = new DM_Enemy*[10];
+	for (int i = 0; i < NSPRITES; i++)
+	{
+		m_pEnemies[i] = NULL;
+		m_pEnemySprites[i] = NULL;
+	}
 	m_iNumEnemies = 0;
 	m_fElapsedSeconds = 0;
 }
