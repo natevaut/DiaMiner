@@ -38,6 +38,7 @@
 #define NSFX 10
 #define SFXN_EXPLOSION 1
 #define SFXN_GLINT 2
+#define SFXN_ATTACK 3
 
 #define SETSCREENX(val) SetX((int)(WORLD_START_X + val * SCALE * TILE_SIZE_PX))
 #define SETSCREENY(val) SetY((int)(WORLD_START_Y + val * SCALE * TILE_SIZE_PX))
@@ -174,6 +175,7 @@ bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 	m_pSystem = pAudioSystem;
 	pAudioSystem->createSound(SOUNDS_PATH "explosion.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_EXPLOSION);
 	pAudioSystem->createSound(SOUNDS_PATH "glint.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_GLINT);
+	pAudioSystem->createSound(SOUNDS_PATH "wack.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_ATTACK);
 
 	return true;
 }
@@ -301,6 +303,8 @@ void SceneMain::Process(float deltaTime seconds)
 				// damage player
 				pPlayer->health--;
 				pPlayer->money--;
+				//attack soundfx
+				m_pSystem->playSound(m_pSoundEffects[SFXN_ATTACK], 0, false, &channel);
 			}
 			else if (within2dist)
 			{
@@ -327,6 +331,8 @@ void SceneMain::Process(float deltaTime seconds)
 				pEnemySprite->SetBlueTint(1.0f);
 				// take away money
 				pPlayer->money--;
+				//attack soundfx
+				m_pSystem->playSound(m_pSoundEffects[SFXN_ATTACK], 0, false, &channel);
 			}
 			else
 			{
