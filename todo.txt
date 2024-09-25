@@ -1,5 +1,3 @@
-B-grade:
-- Audio
 A-grade:
 - Enemy attacking
 - Data driven design
