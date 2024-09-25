@@ -46,7 +46,7 @@ protected:
 
 private:
 	FMOD::System* m_pSystem;
-	FMOD::Sound* m_pSoundEffect;
+	FMOD::Sound** m_pSoundEffects;
 	float m_fElapsedSeconds;
 	float* m_pfStateCooldowns;
 	Renderer* m_pRenderer;

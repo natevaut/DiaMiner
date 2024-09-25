@@ -35,6 +35,9 @@
 #define SPRITEN_EXPLOSION 0
 #define SPRITEN_GLIMMER 1
 
+#define NSFX 10
+#define SFXN_EXPLOSION 1
+
 #define SETSCREENX(val) SetX((int)(WORLD_START_X + val * SCALE * TILE_SIZE_PX))
 #define SETSCREENY(val) SetY((int)(WORLD_START_Y + val * SCALE * TILE_SIZE_PX))
 
@@ -63,7 +66,7 @@ SceneMain::SceneMain(int width, int height)
 	, m_pEnemySprites(NULL)
 	, m_iNumEnemies(0)
 	, m_pSystem(NULL)
-	, m_pSoundEffect(NULL)
+	, m_pSoundEffects(NULL)
 {
 	srand((int)time(0));
 }
@@ -76,6 +79,12 @@ bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 	m_pGame = new DM_Game;
 
 	m_background = 0xdddddd;
+
+	m_pSoundEffects = new FMOD::Sound *[NSFX];
+	for (int i = 0; i < NSFX; i++)
+	{
+		m_pSoundEffects[i] = NULL;
+	}
 
 	m_pSprites = new Sprite *[NSPRITES];
 	m_pAnimSprites = new AnimatedSprite *[NSPRITES];
@@ -162,7 +171,7 @@ bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 
  // Audio
 	m_pSystem = pAudioSystem;
-	pAudioSystem->createSound(SOUNDS_PATH "explosion.wav", FMOD_DEFAULT, 0, &m_pSoundEffect);
+	pAudioSystem->createSound(SOUNDS_PATH "explosion.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_EXPLOSION);
 
 	return true;
 }
@@ -170,6 +179,10 @@ bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 void SceneMain::Process(float deltaTime seconds)
 {
 	m_fElapsedSeconds += deltaTime;
+
+
+	// Process audio
+	FMOD::Channel* channel = NULL;
 
 	// Process all sprites
 	m_pPlayerSprite->Process(deltaTime);
@@ -230,6 +243,7 @@ void SceneMain::Process(float deltaTime seconds)
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SetScale(SCALE);
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SETSCREENX(pPlayer->xTile);
 		m_pAnimSprites[SPRITEN_EXPLOSION]->SETSCREENY(pPlayer->yTile);
+		m_pSystem->playSound(m_pSoundEffects[SFXN_EXPLOSION], 0, false, &channel);
 		break;
 	case LatestAction::COLLECTED:
 		m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(SCALE);
@@ -337,11 +351,6 @@ void SceneMain::Process(float deltaTime seconds)
 				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.95f : 0.99f);
 			}
 #endif
-
-	// Process audio
-	FMOD::Channel* channel = nullptr;
-	m_pSystem->playSound(m_pSoundEffect, 0, false, &channel);
-
 
 }
 

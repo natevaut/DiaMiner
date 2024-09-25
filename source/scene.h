@@ -31,7 +31,7 @@ protected:
 	int m_iWidth;
 	int m_iHeight;
 	FMOD::System* m_pSystem;
-	FMOD::Sound* m_pSoundEffect;
+	FMOD::Sound** m_pSoundEffects;
 
 private:
 	Scene(const Scene &scene);
