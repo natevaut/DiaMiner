@@ -2,6 +2,8 @@
 // This include:
 #include "game.h"
 // Library includes:
+#include "fmod.hpp"
+
 #include "defs.h"
 #include "renderer.h"
 #include "logmanager.h"
