@@ -3,6 +3,7 @@
 #include "scene_main.h"
 
 #include <random>
+#include <fmod.hpp>
 
 #include "animatedsprite.h"
 #include "defs.h"
@@ -61,13 +62,15 @@ SceneMain::SceneMain(int width, int height)
 	, m_pEnemies(NULL)
 	, m_pEnemySprites(NULL)
 	, m_iNumEnemies(0)
+	, m_pSystem(NULL)
+	, m_pSoundEffect(NULL)
 {
 	srand((int)time(0));
 }
 SceneMain::~SceneMain()
 {
 }
-bool SceneMain::Initialise(Renderer& renderer)
+bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 {
 	m_pRenderer = &renderer;
 	m_pGame = new DM_Game;
@@ -156,6 +159,10 @@ bool SceneMain::Initialise(Renderer& renderer)
 	for (int i = 0; i < SDL_NUM_SCANCODES; i++) {
 		m_pfStateCooldowns[i] = 0 seconds;
 	}
+
+ // Audio
+	m_pSystem = pAudioSystem;
+	pAudioSystem->createSound(SOUNDS_PATH "explosion.wav", FMOD_DEFAULT, 0, &m_pSoundEffect);
 
 	return true;
 }
@@ -330,6 +337,12 @@ void SceneMain::Process(float deltaTime seconds)
 				m_pTileSprites[i][j][k]->SetAlpha(doGlint ? 0.95f : 0.99f);
 			}
 #endif
+
+	// Process audio
+	FMOD::Channel* channel = nullptr;
+	m_pSystem->playSound(m_pSoundEffect, 0, false, &channel);
+
+
 }
 
 void SceneMain::Draw(Renderer &renderer)

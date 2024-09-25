@@ -16,7 +16,7 @@ class SceneAUT : public Scene
 public:
 	SceneAUT(int width, int height);
 	virtual ~SceneAUT();
-	virtual bool Initialise(Renderer& renderer);
+	virtual bool Initialise(Renderer& renderer, FMOD::System* pAudioSystem);
 	virtual void Process(float deltaTime);
 	virtual void Draw(Renderer& renderer);
 	virtual void ProcessInput(const Uint8* state);

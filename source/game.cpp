@@ -1,8 +1,8 @@
 // COMP710 GP Framework 2022
-// This include:
+
 #include "game.h"
-// Library includes:
-#include "fmod.hpp"
+
+#include <fmod.hpp>
 
 #include "defs.h"
 #include "renderer.h"
@@ -46,6 +46,7 @@ Game::Game()
 #endif
 	, m_pScenes(0)
 	, m_pSprites(0)
+	, m_pSystem(0)
 {
 }
 Game::~Game()
@@ -56,6 +57,12 @@ Game::~Game()
 void Game::Quit()
 {
 	m_bLooping = false;
+	if(m_pSystem)
+	{
+		m_pSystem->close();
+		m_pSystem->release();
+		m_pSystem = NULL;
+	}
 }
 
 bool Game::Initialise()
@@ -72,16 +79,20 @@ bool Game::Initialise()
 	bbHeight = m_pRenderer->GetHeight();
 	m_iLastTime = SDL_GetPerformanceCounter();
 
+	// Audio
+	FMOD::System_Create(&m_pSystem);
+	m_pSystem->init(512, FMOD_INIT_NORMAL, 0);
+
 	// Setup scenes
 
 	m_pScenes = new Scene *[NSCENES + 1];
 	Scene **pScenes = m_pScenes;
 
 	pScenes[SCENEID_MAIN] = new SceneMain(bbWidth, bbHeight);
-	pScenes[SCENEID_MAIN]->Initialise(*m_pRenderer);
+	pScenes[SCENEID_MAIN]->Initialise(*m_pRenderer, m_pSystem);
 
 	pScenes[SCENEID_AUT] = new SceneAUT(bbWidth, bbHeight);
-	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer);
+	pScenes[SCENEID_AUT]->Initialise(*m_pRenderer, m_pSystem);
 
 	for (int i = 0; i <= NSCENES; i++)
 	{
@@ -152,6 +163,11 @@ void Game::Process(float deltaTime)
 	}
 
 	m_scenes[m_iCurrentScene]->Process(deltaTime);
+
+	if (m_pSystem)
+	{
+		m_pSystem->update();
+	}
 }
 void Game::Draw(Renderer &renderer)
 {

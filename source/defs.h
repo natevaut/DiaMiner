@@ -5,6 +5,7 @@
 
 #define SPRITE_PATH "sprite/"
 #define SHADER_PATH "shader/"
+#define SOUNDS_PATH "sound/"
 
 typedef unsigned char byte;
 

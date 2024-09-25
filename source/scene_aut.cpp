@@ -18,8 +18,7 @@ SceneAUT::~SceneAUT()
 {
 }
 
-bool
-SceneAUT::Initialise(Renderer& renderer)
+bool SceneAUT::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
 {
 	srand((int)time(0));
 	Renderer* m_pRenderer = &renderer;

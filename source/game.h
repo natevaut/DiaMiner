@@ -3,6 +3,8 @@
 // COMP710 GP Framework 2022
 #ifndef GAME_H
 #define GAME_H
+
+#include <fmod.hpp>
 // Forward declarations:
 class Renderer;
 class Sprite;
@@ -46,6 +48,7 @@ protected:
 	int m_iUpdateCount;
 #endif // USE_LAG
 	bool m_bLooping;
+	FMOD::System* m_pSystem;
 
 private:
 };

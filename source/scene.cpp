@@ -5,9 +5,11 @@
 
 // Local includes:
 #include "renderer.h"
+#include "defs.h"
 
 // Library includes:
 #include <cassert>
+#include <fmod.hpp>
 
 Scene::Scene(int bbWidth, int bbHeight)
 {
@@ -17,9 +19,4 @@ Scene::Scene(int bbWidth, int bbHeight)
 }
 Scene::~Scene()
 {
-}
-
-bool Scene::Initialise(Renderer &renderer)
-{
-	return true;
 }

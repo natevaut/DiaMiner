@@ -4,6 +4,7 @@
 #define SCENEMAIN_H
 
 #include <SDL.h>
+#include <fmod.hpp>
 
 #include "scene.h"
 
@@ -20,7 +21,7 @@ class SceneMain : public Scene
 public:
 	SceneMain(int width, int height);
 	virtual ~SceneMain();
-	virtual bool Initialise(Renderer &renderer);
+	virtual bool Initialise(Renderer& renderer, FMOD::System* pAudioSystem);
 	virtual void Process(float deltaTime);
 	virtual void Draw(Renderer &renderer);
 	virtual void ProcessInput(const Uint8*state);
@@ -42,7 +43,10 @@ protected:
 	Sprite* m_pPlayerSprite;
 	DM_Enemy** m_pEnemies;
 	Sprite** m_pEnemySprites;
+
 private:
+	FMOD::System* m_pSystem;
+	FMOD::Sound* m_pSoundEffect;
 	float m_fElapsedSeconds;
 	float* m_pfStateCooldowns;
 	Renderer* m_pRenderer;
