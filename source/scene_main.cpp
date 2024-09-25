@@ -37,6 +37,7 @@
 
 #define NSFX 10
 #define SFXN_EXPLOSION 1
+#define SFXN_GLINT 2
 
 #define SETSCREENX(val) SetX((int)(WORLD_START_X + val * SCALE * TILE_SIZE_PX))
 #define SETSCREENY(val) SetY((int)(WORLD_START_Y + val * SCALE * TILE_SIZE_PX))
@@ -172,6 +173,7 @@ bool SceneMain::Initialise(Renderer& renderer, FMOD::System* pAudioSystem)
  // Audio
 	m_pSystem = pAudioSystem;
 	pAudioSystem->createSound(SOUNDS_PATH "explosion.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_EXPLOSION);
+	pAudioSystem->createSound(SOUNDS_PATH "glint.wav", FMOD_DEFAULT, 0, m_pSoundEffects + SFXN_GLINT);
 
 	return true;
 }
@@ -249,6 +251,7 @@ void SceneMain::Process(float deltaTime seconds)
 		m_pAnimSprites[SPRITEN_GLIMMER]->SetScale(SCALE);
 		m_pAnimSprites[SPRITEN_GLIMMER]->SETSCREENX(pPlayer->xTile);
 		m_pAnimSprites[SPRITEN_GLIMMER]->SETSCREENY(pPlayer->yTile);
+		m_pSystem->playSound(m_pSoundEffects[SFXN_GLINT], 0, false, &channel);
 		break;
 	default: break;
 	}
